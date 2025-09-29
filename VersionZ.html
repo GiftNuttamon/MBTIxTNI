@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เลือกคณะให้ตรงใจ MBT(N)I × คณะที่ใช่</title>
+  <style>
+    :root{
+      --bg1:#0b1020; /* night */
+      --bg2:#111b3a; /* galaxy */
+      --neon:#8ad1ff;
+      --neon2:#ce9bff;
+      --candy1:#ff8bd1;
+      --candy2:#8bffdd;
+      --candy3:#ffe58b;
+      --card:#0f1530cc;
+      --white:#f8faff;
+      --muted:#c9d3ff;
+      --accent:#86ffb1;
+      --danger:#ff6b8b;
+      --ok:#7bf7ff;
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --card:#eef2ffdd; --bg1:#e8f2ff; --bg2:#dfe7ff; --white:#0b1020; --muted:#2a2f4a; }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--white); font-family: system-ui, -apple-system, "Segoe UI", Roboto, Kanit, "Noto Sans JP", sans-serif;
+      background:
+        radial-gradient(1200px 800px at 10% -10%, #20306a66, transparent 60%),
+        radial-gradient(1000px 600px at 90% 10%, #301a5f66, transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* twinkling stars */
+    .stars, .stars2{position:fixed; inset:0; pointer-events:none;}
+    .stars{background: radial-gradient(2px 2px at 20% 30%, #fff, transparent 40%),
+                         radial-gradient(1.5px 1.5px at 60% 70%, #fff, transparent 40%),
+                         radial-gradient(1.5px 1.5px at 80% 20%, #fff, transparent 40%),
+                         radial-gradient(2px 2px at 40% 80%, #fff, transparent 40%);
+      opacity:.7; animation: twinkle 6s linear infinite alternate;
+    }
+    .stars2{background: radial-gradient(1.5px 1.5px at 15% 60%, #fff, transparent 40%),
+                          radial-gradient(2px 2px at 75% 35%, #fff, transparent 40%),
+                          radial-gradient(1.2px 1.2px at 50% 20%, #fff, transparent 40%);
+      opacity:.4; animation: twinkle 9s linear infinite alternate-reverse;
+    }
+    @keyframes twinkle { from{filter:brightness(.9)} to{filter:brightness(1.3)} }
+
+    /* 3D candy text */
+    .candy3d{position:relative; display:inline-block; padding:.35em .7em; border-radius:999px;
+      background: radial-gradient(120% 140% at 30% 20%, var(--candy2), var(--candy1) 50%, var(--candy3));
+      color:#111; font-weight:900; letter-spacing:.5px; text-transform:none;
+      box-shadow: inset 0 4px 8px #ffffffaa, inset 0 -10px 30px #00000022, var(--shadow);
+    }
+    .candy3d.big{ font-size: clamp(20px, 3.5vw, 44px); }
+    .candy3d .shine{ position:absolute; inset:0; border-radius:999px; background: linear-gradient( to bottom, #ffffff55, #ffffff05 40% 60%, #00000022 ); mix-blend-mode: screen; pointer-events:none;}
+
+    header{ position:sticky; top:0; z-index:50; backdrop-filter: blur(10px); background: linear-gradient( to right, #0b1020aa, #111b3aaa ); border-bottom:1px solid #ffffff22; }
+    .bar{ max-width:1200px; margin:auto; display:flex; align-items:center; gap:16px; padding:12px 16px; }
+    .brand{ display:flex; align-items:center; gap:10px; }
+    .orb{ width:36px; height:36px; border-radius:50%; background: radial-gradient(circle at 30% 30%, var(--neon), transparent 60%), radial-gradient(circle at 70% 60%, var(--neon2), transparent 60%); box-shadow: 0 0 22px var(--neon), inset 0 0 10px var(--neon2); }
+    .title{ font-size: clamp(16px, 2.2vw, 26px); font-weight:800; text-shadow: 0 1px 0 #fff3, 0 2px 0 #fff2, 0 3px 0 #fff1, 0 0 18px var(--neon2);
+    }
+    .lang{ margin-left:auto; display:flex; gap:8px; }
+    .lang button{ background:linear-gradient(135deg, #2a3470, #623f9c); color:#fff; border:none; padding:8px 12px; border-radius:10px; cursor:pointer; box-shadow: var(--shadow); font-weight:700 }
+    .lang button.active{ outline:2px solid var(--neon2); filter:brightness(1.1) }
+
+    main{ max-width:1200px; margin: 20px auto 100px; padding: 0 16px; }
+
+    .card{ background: var(--card); border:1px solid #ffffff22; border-radius: 22px; padding:20px; box-shadow: var(--shadow); backdrop-filter: blur(8px); }
+    .grid{ display:grid; gap:16px; grid-template-columns: repeat(12, 1fr); }
+    .col-12{ grid-column: span 12; }
+    .col-6{ grid-column: span 6; }
+    .col-4{ grid-column: span 4; }
+    @media (max-width: 900px){ .col-6, .col-4{ grid-column: span 12; } }
+
+    .btn{ display:inline-flex; align-items:center; gap:8px; background: linear-gradient(135deg, #2d3a7a, #6e3fc7); color:#fff; padding:12px 16px; border:none; border-radius:12px; cursor:pointer; font-weight:800; box-shadow: 0 10px 30px #0008; }
+    .btn.secondary{ background: linear-gradient(135deg, #284056, #3b7189); }
+    .btn.ghost{ background: transparent; border:1px dashed #9cc7ff66 }
+    .btn:active{ transform: translateY(1px) }
+
+    .step{ display:none; animation: fade .35s ease }
+    .step.active{ display:block }
+    @keyframes fade{ from{ opacity:0; transform: translateY(6px) } to{ opacity:1; transform:none } }
+
+    /* Form */
+    .field{ margin: 14px 0 }
+    label{ display:block; color: var(--muted); font-weight:700; margin-bottom:6px }
+    input, select{ width:100%; padding:12px 14px; border-radius:12px; border:1px solid #ffffff33; background:#0e1636; color:#fff; }
+    .inline{ display:flex; gap:10px; flex-wrap:wrap }
+
+    /* Quiz */
+    .q{ padding:16px; border-radius:18px; border:1px solid #ffffff22; background: #0d1433aa; margin: 10px 0; }
+    .q h4{ margin:0 0 8px; }
+    .opt{ display:flex; gap:10px; align-items:center; }
+    .opt label{ display:flex; gap:8px; align-items:center; background:#0a1330; padding:10px 12px; border-radius:12px; border:1px solid #ffffff22; cursor:pointer; }
+    .opt input{ transform: scale(1.2) }
+
+    /* Result + NPC animation */
+    .portal{ position:relative; height:200px; border-radius:18px; border:1px dashed #7db2ff55; overflow:hidden; margin-top:16px; }
+    .door{ position:absolute; right:16px; top: 50%; transform: translateY(-50%); width:100px; height:150px; border-radius: 50px 50px 10px 10px; background: radial-gradient(120px 120px at 40% 30%, #7dfbff66, transparent 60%),
+      linear-gradient(180deg, #132b66, #2a74bb); box-shadow: inset 0 0 25px #fff6, 0 0 30px #62e8ff; animation: doorPulse 2.2s ease-in-out infinite; border:2px solid #9ed9ff; }
+    @keyframes doorPulse{ 0%{ filter:brightness(1) } 60%{ filter:brightness(1.35)} 100%{ filter:brightness(1)} }
+    .npc{ position:absolute; left:-80px; bottom:20px; display:flex; align-items:center; gap:10px; animation: walkToDoor 6s ease forwards; }
+    .npc .emoji{ font-size:48px; filter: drop-shadow(0 6px 10px #0009) }
+    .npc .tag{ padding:6px 10px; border-radius:999px; background: #0a1537; border:1px solid #ffffff33; box-shadow: var(--shadow); font-weight:700 }
+    @keyframes walkToDoor{ 0%{ transform: translateX(0) } 100%{ transform: translateX(calc(100% - 140px)) } }
+
+    /* Step 4 playground */
+    .floaters{ position:relative; }
+    .floater{ position:absolute; font-size: 28px; opacity:.7; animation: bob 6s ease-in-out infinite; filter: drop-shadow(0 4px 8px #0008) }
+    .floater:nth-child(1){ top:6%; left:6%; animation-duration:8s }
+    .floater:nth-child(2){ top:12%; right:10%; animation-duration:6.5s }
+    .floater:nth-child(3){ bottom:14%; left:10%; animation-duration:7.5s }
+    .floater:nth-child(4){ bottom:8%; right:12%; animation-duration:9s }
+    @keyframes bob{ 0%{ transform: translateY(0)} 50%{ transform: translateY(-10px) } 100%{ transform: translateY(0) } }
+
+    .faculty-grid{ display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .faculty{ position:relative; border-radius:20px; padding:16px; background: linear-gradient(180deg, #101a3d, #121a39); border: 1px solid #8fd1ff33; box-shadow: var(--shadow); }
+    .faculty h3{ margin:.2em 0 .5em; }
+    .badge{ display:inline-block; padding:6px 10px; background: #11224d; border:1px solid #5db7ff66; border-radius:999px; margin: 4px 6px 0 0; font-weight:800 }
+    .reason{ font-size:.95em; color: var(--muted); margin:.3em 0 0 }
+
+    .navs{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px }
+
+    footer{ text-align:center; color:var(--muted); padding:40px 10px }
+    .hint{ color:var(--muted); font-size:.9em }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <header>
+    <div class="bar">
+      <div class="brand">
+        <div class="orb" aria-hidden="true"></div>
+        <div class="title" id="appTitle">เลือกคณะให้ตรงใจ MBT(N)I × คณะที่ใช่</div>
+      </div>
+      <div class="lang" role="group" aria-label="language switcher">
+        <button id="btnTH" class="active" data-lang="th">TH</button>
+        <button id="btnEN" data-lang="en">EN</button>
+        <button id="btnJA" data-lang="ja">日本語</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="card col-12" style="text-align:center">
+      <div class="candy3d big"><span id="heroPill">เริ่มผจญภัยโลกเวทมนต์เพื่อหาคณะที่ใช่</span><span class="shine"></span></div>
+      <p class="hint" id="heroHint">เว็บนี้เป็นเพียง Frontend—ไม่มีการเก็บข้อมูลส่วนตัว</p>
+    </section>
+
+    <!-- STEP 1: Profile -->
+    <section id="step1" class="step active">
+      <div class="grid">
+        <div class="col-12 card">
+          <h2 id="s1Title">STEP 1 · แนะนำตัวผู้กล้า</h2>
+          <div class="field">
+            <label id="lblNickname" for="nickname">ชื่อเล่น</label>
+            <input id="nickname" type="text" placeholder="Gift / テスト" maxlength="20" />
+          </div>
+          <div class="field inline">
+            <div style="flex:1">
+              <label id="lblAge" for="age">อายุ</label>
+              <input id="age" type="number" min="8" max="80" placeholder="18" />
+            </div>
+            <div style="flex:1">
+              <label id="lblGender" for="gender">เพศ</label>
+              <select id="gender">
+                <option value="male" id="gMale">ชาย</option>
+                <option value="female" id="gFemale">หญิง</option>
+                <option value="other" id="gOther">อื่นๆ</option>
+              </select>
+            </div>
+          </div>
+          <div class="navs">
+            <button class="btn" id="toStep2">✨ ต่อไป: ทำแบบทดสอบ</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2: MBTI Quiz -->
+    <section id="step2" class="step">
+      <div class="grid">
+        <div class="col-12 card">
+          <h2 id="s2Title">STEP 2 · แบบทดสอบ MBTI</h2>
+          <p class="hint" id="s2Hint">เลือกคำตอบที่ตรงกับตัวคุณมากกว่า (16 ข้อ)</p>
+          <div id="quiz"></div>
+          <div class="navs">
+            <button class="btn secondary" id="back1">◀ ย้อนกลับ</button>
+            <button class="btn" id="submitQuiz">🔮 ส่งคำตอบ</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: Result + Animation -->
+    <section id="step3" class="step">
+      <div class="grid">
+        <div class="col-12 card">
+          <h2 id="s3Title">STEP 3 · ผลลัพธ์และประตูแห่งคณะที่ใช่</h2>
+          <div id="resultBox" style="margin-bottom:12px"></div>
+          <div class="portal" aria-label="npc animation">
+            <div class="door" aria-hidden="true"></div>
+            <div id="npc" class="npc" style="display:none">
+              <div class="emoji" id="npcEmoji" aria-hidden="true">🦊</div>
+              <div class="tag" id="npcTag">NPC</div>
+            </div>
+          </div>
+          <div class="navs">
+            <button class="btn secondary" id="redo">🔁 ทำแบบทดสอบใหม่</button>
+            <button class="btn" id="goStep4">🌌 ดู MBTI ที่เหมาะกับแต่ละคณะ</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 4: All faculties fancy page -->
+    <section id="step4" class="step">
+      <div class="grid">
+        <div class="col-12 card floaters">
+          <h2 id="s4Title">STEP 4 · สำรวจจักรวาลคณะที่ใช่</h2>
+          <p class="hint" id="s4Hint">แตะ/คลิกเพื่อดู MBTI และเหตุผลของแต่ละคณะ</p>
+          <div class="floater">🪄</div>
+          <div class="floater">🧪</div>
+          <div class="floater">✨</div>
+          <div class="floater">🛸</div>
+          <div id="facultyGrid" class="faculty-grid"></div>
+          <div class="navs">
+            <button class="btn secondary" id="back3">◀ กลับ</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div id="footText">© 2025 Fantasy MBT(N)I × Faculty — Frontend only • No tracking</div>
+    </footer>
+  </main>
+
+  <script>
+    "use strict";
+
+    // ===================== I18N =====================
+    const i18n = {
+      th: {
+        appTitle: "เลือกคณะให้ตรงใจ MBT(N)I × คณะที่ใช่",
+        heroPill: "เริ่มผจญภัยโลกเวทมนต์เพื่อหาคณะที่ใช่",
+        heroHint: "เว็บนี้เป็นเพียง Frontend—ไม่มีการเก็บข้อมูลส่วนตัว",
+        s1Title: "STEP 1 · แนะนำตัวผู้กล้า",
+        lblNickname:"ชื่อเล่น", lblAge:"อายุ", lblGender:"เพศ", gMale:"ชาย", gFemale:"หญิง", gOther:"อื่นๆ",
+        toStep2:"✨ ต่อไป: ทำแบบทดสอบ",
+        s2Title:"STEP 2 · แบบทดสอบ MBTI", s2Hint:"เลือกคำตอบที่ตรงกับตัวคุณมากกว่า (16 ข้อ)",
+        back:"◀ ย้อนกลับ", submit:"🔮 ส่งคำตอบ",
+        s3Title:"STEP 3 · ผลลัพธ์และประตูแห่งคณะที่ใช่",
+        redo:"🔁 ทำแบบทดสอบใหม่", goStep4:"🌌 ดู MBTI ที่เหมาะกับแต่ละคณะ",
+        s4Title:"STEP 4 · สำรวจจักรวาลคณะที่ใช่", s4Hint:"แตะ/คลิกเพื่อดู MBTI และเหตุผลของแต่ละคณะ", back3:"◀ กลับ",
+        invalid:"โปรดกรอกข้อมูลให้ครบ", needAll:"โปรดตอบคำถามให้ครบ 16 ข้อ",
+        yourType:"MBTI ของคุณคือ", recommend:"คณะที่แนะนำ",
+        reason:"เหตุผล",
+        npcSays:(name, age)=>`NPC: ${name} (${age})` ,
+        faculties: {
+          eng:{ name:"คณะวิศวกรรมศาสตร์", about:"เหมาะกับคนที่ชอบคิดวิเคราะห์ แก้ปัญหา และสร้างนวัตกรรมใหม่ๆ" },
+          it:{ name:"คณะเทคโนโลยีสารสนเทศ", about:"เหมาะกับคนที่สนใจเทคโนโลยี นวัตกรรมดิจิทัล และการวิเคราะห์ข้อมูล" },
+          bus:{ name:"คณะบริหารธุรกิจ", about:"เหมาะกับคนที่สนใจการนำเทคโนโลยีดิจิทัลมาใช้ในภาคธุรกิจ" },
+          ic:{ name:"คณะสื่อสารสากล", about:"เหมาะกับคนที่รักการสื่อสาร และสนใจเรื่องภาษาวัฒนธรรม" },
+          dti:{ name:"คณะเทคโนโลยีดิจิทัลเพื่อธุรกิจอุตสาหกรรม", about:"เหมาะกับคนที่สนใจการนำเทคโนโลยีดิจิทัลมาใช้ในภาคอุตสาหกรรม" }
+        },
+        // reasons per faculty per MBTI
+        reasons: {
+          eng:{ INTJ:"นักวางแผนกลยุทธ์และพัฒนาเทคโนโลยี", ENTJ:"ผู้นำที่ต้องการควบคุมและบริหารระบบ", INTP:"นักคิดนอกกรอบ ชอบทดลองและพัฒนา", ISTP:"นักลงมือทำ ชอบประกอบและทดลองเครื่องจักร" },
+          it:{ INTP:"นักคิดเชิงวิเคราะห์ ชอบออกแบบระบบ", ENTP:"ชอบพัฒนาเทคโนโลยีใหม่ๆ", INFJ:"อยากใช้เทคโนโลยีเพื่อช่วยเหลือสังคม", ISFP:"มีความคิดสร้างสรรค์ด้านงานออกแบบดิจิทัล" },
+          bus:{ ESTJ:"นักบริหารที่มีระบบระเบียบ", ISTJ:"นักวางแผนและจัดการธุรกิจ", ESFJ:"มนุษยสัมพันธ์ดี รักงานบริการ", ENFJ:"นักสร้างแรงบันดาลใจและผู้นำที่เข้าใจคน", ENFP:"นักสร้างสรรค์ไอเดียใหม่ๆ ด้านธุรกิจ" },
+          ic:{ ENFP:"นักเล่าเรื่องสร้างแรงบันดาลใจ", ENTP:"นักคิดนอกกรอบ เก่งเจรจาและนำเสนอ", INFJ:"นักสื่อสารที่ต้องการเปลี่ยนแปลงสังคม", ENFJ:"นักพูด นักสร้างอิทธิพล และมีเสน่ห์" },
+          dti:{ INTJ:"นักวางแผนกลยุทธ์และพัฒนาเทคโนโลยี", ENTJ:"ผู้นำที่ชอบบริหารจัดการเทคโนโลยีระบบอุตสาหกรรม", ISTJ:"นักวิเคราะห์ข้อมูลที่แม่นยำรอบคอบ", INTP:"นักคิดเชิงวิเคราะห์ ชอบออกแบบและพัฒนาเทคโนโลยีใหม่ๆ" }
+        },
+        ui:{ next:"ถัดไป", selectAll:"เลือกทั้งหมด" },
+        resultLine:(type, fac)=>`MBTI ของคุณคือ <b>${type}</b> → <b>${fac}</b>`
+      },
+      en: {
+        appTitle:"Find Your Faculty Match · MBT(N)I × The Right Faculty",
+        heroPill:"Begin your magical quest for the right faculty",
+        heroHint:"Frontend only — no personal data is stored",
+        s1Title:"STEP 1 · Your Adventurer Profile",
+        lblNickname:"Nickname", lblAge:"Age", lblGender:"Gender", gMale:"Male", gFemale:"Female", gOther:"Other",
+        toStep2:"✨ Next: Take the Test",
+        s2Title:"STEP 2 · MBTI Quiz", s2Hint:"Choose the statement that fits you best (16 items)",
+        back:"◀ Back", submit:"🔮 Submit",
+        s3Title:"STEP 3 · Result & The Door to Your Faculty",
+        redo:"🔁 Retake Quiz", goStep4:"🌌 View MBTI × Faculty Mapping",
+        s4Title:"STEP 4 · Explore the Faculty Universe", s4Hint:"Tap/click cards to see MBTI & reasons", back3:"◀ Back",
+        invalid:"Please complete all fields", needAll:"Please answer all 16 questions",
+        yourType:"Your MBTI is", recommend:"Recommended Faculty",
+        reason:"Reason",
+        npcSays:(name, age)=>`NPC: ${name} (${age})`,
+        faculties:{
+          eng:{ name:"Faculty of Engineering", about:"Great for analytical problem-solvers and innovators" },
+          it:{ name:"Faculty of Information Technology", about:"Ideal for tech, digital innovation, and data analysis lovers" },
+          bus:{ name:"Faculty of Business Administration", about:"For those bringing digital tech into business" },
+          ic:{ name:"Faculty of International Communication", about:"For communication lovers, languages and cultures" },
+          dti:{ name:"Digital Technology for Industrial Business", about:"For applying digital tech in industrial contexts" }
+        },
+        reasons:{
+          eng:{ INTJ:"Strategic planner & tech developer", ENTJ:"Leader who manages complex systems", INTP:"Out‑of‑the‑box thinker, loves experimenting", ISTP:"Hands‑on maker, enjoys machines" },
+          it:{ INTP:"Analytical thinker, system designer", ENTP:"Builds new technologies", INFJ:"Uses tech to help society", ISFP:"Creative in digital design" },
+          bus:{ ESTJ:"Orderly, systems‑minded manager", ISTJ:"Planner and business organizer", ESFJ:"People‑oriented, service‑minded", ENFJ:"Inspirational, people‑centric leader", ENFP:"Creative idea generator in business" },
+          ic:{ ENFP:"Inspiring storyteller", ENTP:"Non‑conformist, strong negotiator & presenter", INFJ:"Communicator for social change", ENFJ:"Influential speaker with charisma" },
+          dti:{ INTJ:"Strategic planner & tech architect", ENTJ:"Leader of industrial tech systems", ISTJ:"Diligent, precise data analyst", INTP:"Analytical designer of new technologies" }
+        },
+        ui:{ next:"Next", selectAll:"Select All" },
+        resultLine:(type, fac)=>`Your MBTI is <b>${type}</b> → <b>${fac}</b>`
+      },
+      ja: {
+        appTitle:"MBT(N)I × 学部マッチング",
+        heroPill:"魔法の夜へ出発—あなたに合う学部を探そう",
+        heroHint:"フロントエンドのみ—個人情報は保存しません",
+        s1Title:"STEP 1 · 冒険者プロフィール",
+        lblNickname:"ニックネーム", lblAge:"年齢", lblGender:"性別", gMale:"男性", gFemale:"女性", gOther:"その他",
+        toStep2:"✨ 次へ：テストを受ける",
+        s2Title:"STEP 2 · MBTI テスト", s2Hint:"自分に近い方を選んでください（16問）",
+        back:"◀ 戻る", submit:"🔮 送信",
+        s3Title:"STEP 3 · 結果と学部への扉",
+        redo:"🔁 もう一度受ける", goStep4:"🌌 MBTI × 学部の対応を見る",
+        s4Title:"STEP 4 · 学部の宇宙を探検", s4Hint:"カードをタップ/クリックで理由を見る", back3:"◀ 戻る",
+        invalid:"すべて入力してください", needAll:"16問すべてに回答してください",
+        yourType:"あなたの MBTI", recommend:"おすすめ学部",
+        reason:"理由",
+        npcSays:(name, age)=>`NPC: ${name}（${age}）`,
+        faculties:{
+          eng:{ name:"工学部", about:"分析・課題解決・イノベーションが好きな人に" },
+          it:{ name:"情報技術学部", about:"テクノロジー・デジタル革新・データ分析に興味がある人に" },
+          bus:{ name:"経営学部", about:"デジタル技術をビジネスに活用したい人に" },
+          ic:{ name:"国際コミュニケーション学部", about:"コミュニケーション、言語・文化が好きな人に" },
+          dti:{ name:"産業ビジネスのためのデジタル技術学部", about:"産業分野でデジタル技術を活用したい人に" }
+        },
+        reasons:{
+          eng:{ INTJ:"戦略立案とテクノロジー開発に強い", ENTJ:"システム全体を統率・管理するリーダー", INTP:"型破りの思考、実験と開発が好き", ISTP:"手を動かす職人、機械いじりが得意" },
+          it:{ INTP:"分析的思考でシステム設計が得意", ENTP:"新しいテクノロジーを創る", INFJ:"テクノロジーで社会貢献したい", ISFP:"デジタルデザインの創造性" },
+          bus:{ ESTJ:"秩序だったマネジメント", ISTJ:"計画とオペレーションに強い", ESFJ:"人当たりが良くサービス精神旺盛", ENFJ:"人を鼓舞するリーダー", ENFP:"ビジネスの新しいアイデアを生み出す" },
+          ic:{ ENFP:"人を惹きつけるストーリーテラー", ENTP:"交渉・プレゼンに強い発想家", INFJ:"社会変革を目指すコミュニケーター", ENFJ:"カリスマ性のあるスピーカー" },
+          dti:{ INTJ:"戦略的なテックアーキテクト", ENTJ:"産業テックの統括リーダー", ISTJ:"緻密で正確なデータアナリスト", INTP:"新技術の分析・設計者" }
+        },
+        ui:{ next:"次へ", selectAll:"すべて選択" },
+        resultLine:(type, fac)=>`あなたの MBTI は <b>${type}</b> → <b>${fac}</b>`
+      }
+    };
+
+    let LANG = 'th';
+    const $ = (sel)=>document.querySelector(sel);
+    const $$ = (sel)=>document.querySelectorAll(sel);
+
+    function setLang(lang){
+      LANG = lang;
+      // header
+      $('#appTitle').textContent = i18n[lang].appTitle;
+      $('#heroPill').textContent = i18n[lang].heroPill;
+      $('#heroHint').textContent = i18n[lang].heroHint;
+      $('#s1Title').textContent = i18n[lang].s1Title;
+      $('#lblNickname').textContent = i18n[lang].lblNickname;
+      $('#lblAge').textContent = i18n[lang].lblAge;
+      $('#lblGender').textContent = i18n[lang].lblGender;
+      $('#gMale').textContent = i18n[lang].gMale; $('#gFemale').textContent = i18n[lang].gFemale; $('#gOther').textContent = i18n[lang].gOther;
+      $('#toStep2').textContent = i18n[lang].toStep2;
+      $('#s2Title').textContent = i18n[lang].s2Title; $('#s2Hint').textContent = i18n[lang].s2Hint;
+      $('#back1').textContent = i18n[lang].back; $('#submitQuiz').textContent = i18n[lang].submit;
+      $('#s3Title').textContent = i18n[lang].s3Title; $('#redo').textContent = i18n[lang].redo; $('#goStep4').textContent = i18n[lang].goStep4;
+      $('#s4Title').textContent = i18n[lang].s4Title; $('#s4Hint').textContent = i18n[lang].s4Hint; $('#back3').textContent = i18n[lang].back3;
+      renderFacultyGrid();
+      // Update existing result if present
+      if(state.mbti){ showResult(); }
+      // Update quiz questions text
+      renderQuiz();
+      // lang button states
+      $$('.lang button').forEach(b=> b.classList.toggle('active', b.dataset.lang===lang));
+    }
+
+    // ===================== DATA =====================
+    const facultyOrder = ['eng','it','bus','ic','dti'];
+
+    const facultyLists = {
+      eng: ['INTJ','ENTJ','INTP','ISTP'],
+      it:  ['INTP','ENTP','INFJ','ISFP'],
+      bus: ['ESTJ','ISTJ','ESFJ','ENFJ','ENFP'],
+      ic:  ['ENFP','ENTP','INFJ','ENFJ'],
+      dti: ['INTJ','ENTJ','ISTJ','INTP']
+    };
+
+    // Pick animal emoji per MBTI
+    const mbtiAnimal = {
+      INTJ:'🦉', ENTJ:'🦁', INTP:'🦊', ISTP:'🐺',
+      ENTP:'🐒', INFJ:'🦌', ISFP:'🐱',
+      ESTJ:'🦅', ISTJ:'🦫', ESFJ:'🐶', ENFJ:'🐬', ENFP:'🦋'
+    };
+
+    // Questions: 16 items. Each item leans A or B side of a dichotomy.
+    // dim: 'EI'|'SN'|'TF'|'JP' ; sideA: first letter, sideB: second letter
+    const QUIZ = [
+      // E vs I
+      {id:1, dim:'EI', a:{ th:'ฉันชาร์จพลังจากการพบปะผู้คน', en:'I recharge by socializing', ja:'人と会うと元気になる' }, b:{ th:'ฉันชาร์จพลังจากการอยู่กับตัวเอง', en:'I recharge by being alone', ja:'一人の時間で回復する' }, sideA:'E', sideB:'I'},
+      {id:2, dim:'EI', a:{ th:'พูดคุยขณะคิดไปด้วย', en:'Think out loud', ja:'考えながら話す' }, b:{ th:'คิดให้ดีก่อนแล้วค่อยพูด', en:'Think first, speak later', ja:'考えてから話す' }, sideA:'E', sideB:'I'},
+      {id:3, dim:'EI', a:{ th:'ชอบกิจกรรมกลุ่ม', en:'Prefer group activities', ja:'グループ活動が好き' }, b:{ th:'ชอบทำงานเดี่ยว', en:'Prefer solo tasks', ja:'一人での作業が好き' }, sideA:'E', sideB:'I'},
+      {id:4, dim:'EI', a:{ th:'ตัดสินใจรวดเร็วในที่สาธารณะ', en:'Quick decisions in public', ja:'場面で素早く決める' }, b:{ th:'ชอบคิดเงียบๆ ก่อนตัดสินใจ', en:'Prefer quiet reflection first', ja:'静かに考えてから決める' }, sideA:'E', sideB:'I'},
+      // S vs N
+      {id:5, dim:'SN', a:{ th:'ยึดข้อมูลจริง ปัจจุบัน ชัดเจน', en:'Focus on concrete, present facts', ja:'具体的で現実的な事実重視' }, b:{ th:'มองภาพใหญ่ แนวโน้ม อนาคต', en:'See big picture and future trends', ja:'全体像と将来の傾向を見る' }, sideA:'S', sideB:'N'},
+      {id:6, dim:'SN', a:{ th:'ชอบรายละเอียดที่พิสูจน์ได้', en:'Like verifiable details', ja:'検証できる詳細が好き' }, b:{ th:'ชอบไอเดียและความเป็นไปได้', en:'Like ideas and possibilities', ja:'アイデアと可能性が好き' }, sideA:'S', sideB:'N'},
+      {id:7, dim:'SN', a:{ th:'เรียนรู้จากประสบการณ์ตรง', en:'Learn from direct experience', ja:'体験から学ぶ' }, b:{ th:'เรียนรู้จากรูปแบบ/ทฤษฎี', en:'Learn from patterns/theory', ja:'パターンや理論から学ぶ' }, sideA:'S', sideB:'N'},
+      {id:8, dim:'SN', a:{ th:'ทำตามขั้นตอนทีละขั้น', en:'Follow step‑by‑step process', ja:'段階的な手順に従う' }, b:{ th:'กระโดดไอเดียเพื่อหาทางลัด', en:'Jump between ideas for shortcuts', ja:'アイデアを飛ばして近道する' }, sideA:'S', sideB:'N'},
+      // T vs F
+      {id:9, dim:'TF', a:{ th:'ตัดสินใจด้วยเหตุผลและตรรกะ', en:'Decide by logic & reason', ja:'論理と合理で決める' }, b:{ th:'ตัดสินใจคำนึงถึงความรู้สึกคน', en:'Decide by people & feelings', ja:'人の気持ちを重視して決める' }, sideA:'T', sideB:'F'},
+      {id:10, dim:'TF', a:{ th:'ชอบการโต้แย้งเชิงเหตุผล', en:'Enjoy rational debate', ja:'理性的な議論が好き' }, b:{ th:'ชอบสร้างบรรยากาศกลมกลืน', en:'Prefer harmony building', ja:'調和を大切にする' }, sideA:'T', sideB:'F'},
+      {id:11, dim:'TF', a:{ th:'ตรงไปตรงมา', en:'Direct and frank', ja:'ストレート' }, b:{ th:'นุ่มนวลและเห็นอกเห็นใจ', en:'Gentle and empathetic', ja:'やさしく共感的' }, sideA:'T', sideB:'F'},
+      {id:12, dim:'TF', a:{ th:'ให้คะแนนผลงานตามเกณฑ์', en:'Judge work by standards', ja:'基準で評価する' }, b:{ th:'ให้คะแนนโดยคำนึงถึงบริบท', en:'Judge by context & people', ja:'文脈や人を考慮して評価' }, sideA:'T', sideB:'F'},
+      // J vs P
+      {id:13, dim:'JP', a:{ th:'ชอบวางแผนและเสร็จล่วงหน้า', en:'Plan ahead & finish early', ja:'計画的に早めに終わらせる' }, b:{ th:'ยืดหยุ่น แก้ไขหน้างานได้', en:'Flexible, adapt on the fly', ja:'柔軟にその場対応' }, sideA:'J', sideB:'P'},
+      {id:14, dim:'JP', a:{ th:'ชอบตารางงานที่แน่นอน', en:'Prefer fixed schedule', ja:'決まったスケジュールが好き' }, b:{ th:'ชอบทางเลือกเปิดกว้าง', en:'Keep options open', ja:'選択肢を開いておく' }, sideA:'J', sideB:'P'},
+      {id:15, dim:'JP', a:{ th:'จัดโต๊ะ/ไฟล์อย่างเป็นระเบียบ', en:'Keep desk/files tidy', ja:'机やファイルを整理整頓' }, b:{ th:'ระเบียบของฉันฉบับเฉพาะตัว', en:'Personal, flexible order', ja:'自分流のゆるい整理' }, sideA:'J', sideB:'P'},
+      {id:16, dim:'JP', a:{ th:'อยากรู้บทสรุปก่อนลงมือ', en:'Want the plan before acting', ja:'始める前に計画を知りたい' }, b:{ th:'เริ่มเลย ค่อยดำน้ำไปเรียนรู้', en:'Start now, learn as you go', ja:'まず始めて進みながら学ぶ' }, sideA:'J', sideB:'P'}
+    ];
+
+    // ===================== STATE =====================
+    const state = { profile:null, answers: {}, mbti: null, faculty: null };
+
+    // ===================== RENDERERS =====================
+    function showSection(id){
+      $$('.step').forEach(s=>s.classList.remove('active'));
+      $("#"+id).classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    function renderQuiz(){
+      const box = $('#quiz');
+      box.innerHTML = '';
+      QUIZ.forEach(q=>{
+        const wrap = document.createElement('div');
+        wrap.className = 'q';
+        const title = document.createElement('h4');
+        title.innerText = `${q.id}. ${q.a[LANG]} • ${q.b[LANG]}`;
+        wrap.appendChild(title);
+
+        const opts = document.createElement('div');
+        opts.className = 'opt';
+        const idA = `q${q.id}A`; const idB = `q${q.id}B`;
+        opts.innerHTML = `
+          <label for="${idA}"><input type="radio" name="q${q.id}" id="${idA}" value="A"> <span>${q.a[LANG]}</span></label>
+          <label for="${idB}"><input type="radio" name="q${q.id}" id="${idB}" value="B"> <span>${q.b[LANG]}</span></label>
+        `;
+        wrap.appendChild(opts);
+        box.appendChild(wrap);
+      });
+    }
+
+    function computeMBTI(){
+      const scores = {E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
+      for(const q of QUIZ){
+        const sel = document.querySelector(`input[name=q${q.id}]:checked`);
+        if(!sel) return null; // require all answered
+        if(sel.value==='A') scores[q.sideA]++; else scores[q.sideB]++;
+      }
+      // build type; ties resolve to first letter (E,S,T,J)
+      const EI = scores.E>=scores.I? 'E':'I';
+      const SN = scores.S>=scores.N? 'S':'N';
+      const TF = scores.T>=scores.F? 'T':'F';
+      const JP = scores.J>=scores.P? 'J':'P';
+      return EI+SN+TF+JP;
+    }
+
+    function pickFacultyFor(type){
+      // choose first faculty in order that contains type
+      for(const key of facultyOrder){ if(facultyLists[key].includes(type)) return key; }
+      // fallback by dimension
+      const fallback = type.includes('N')? (type.includes('T')? 'eng':'ic') : (type.includes('T')? 'dti':'bus');
+      return fallback;
+    }
+
+    function showResult(){
+      const t = i18n[LANG];
+      const facName = t.faculties[state.faculty].name;
+      const line = t.resultLine(state.mbti, facName);
+      const reasonMap = t.reasons[state.faculty];
+      const reason = reasonMap[state.mbti] || t.faculties[state.faculty].about;
+      $('#resultBox').innerHTML = `
+        <div class="card" style="background:#0c1230; border:1px solid #7db2ff44">
+          <div style="font-size:22px; font-weight:900; margin-bottom:6px">${line}</div>
+          <div class="reason"><b>${t.reason}:</b> ${reason}</div>
+        </div>
+      `;
+      // NPC animation
+      const npc = $('#npc');
+      const emoji = mbtiAnimal[state.mbti] || '🧙‍♂️';
+      $('#npcEmoji').textContent = emoji;
+      const name = state.profile?.nickname || 'NPC';
+      const age = state.profile?.age || '?';
+      $('#npcTag').textContent = t.npcSays(name, age);
+      npc.style.display = 'flex';
+      // restart animation
+      npc.style.animation = 'none'; npc.offsetHeight; npc.style.animation = null;
+    }
+
+    function renderFacultyGrid(){
+      const t = i18n[LANG];
+      const grid = $('#facultyGrid');
+      grid.innerHTML = '';
+      for(const key of facultyOrder){
+        const card = document.createElement('div'); card.className='faculty';
+        const name = t.faculties[key].name; const about = t.faculties[key].about;
+        const list = facultyLists[key];
+        const badges = list.map(m=>`<span class="badge">${m}</span>`).join('');
+        // detail reasons list
+        let details = '';
+        for(const m of list){ const r = t.reasons[key][m] || ''; details += `<div class="reason"><b>${m}</b> — ${r}</div>`; }
+        card.innerHTML = `
+          <h3>${name}</h3>
+          <div class="hint" style="margin-bottom:6px">${about}</div>
+          <div>${badges}</div>
+          <div style="margin-top:8px">${details}</div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    // ===================== EVENTS =====================
+    $('#toStep2').addEventListener('click', ()=>{
+      const nickname = $('#nickname').value.trim();
+      const age = parseInt($('#age').value, 10);
+      const gender = $('#gender').value;
+      if(!nickname || !age || age<8 || age>80){ alert(i18n[LANG].invalid); return; }
+      state.profile = {nickname, age, gender};
+      showSection('step2');
+    });
+
+    $('#back1').addEventListener('click', ()=> showSection('step1'));
+
+    $('#submitQuiz').addEventListener('click', ()=>{
+      const type = computeMBTI();
+      if(!type){ alert(i18n[LANG].needAll); return; }
+      state.mbti = type;
+      state.faculty = pickFacultyFor(type);
+      showSection('step3');
+      showResult();
+    });
+
+    $('#redo').addEventListener('click', ()=>{ state.mbti=null; state.faculty=null; $$('input[type=radio]').forEach(r=>r.checked=false); showSection('step2'); });
+    $('#goStep4').addEventListener('click', ()=>{ renderFacultyGrid(); showSection('step4'); });
+    $('#back3').addEventListener('click', ()=> showSection('step3'));
+
+    // language buttons
+    $$('.lang button').forEach(btn=> btn.addEventListener('click', ()=> setLang(btn.dataset.lang)) );
+
+    // initial renders
+    renderQuiz(); renderFacultyGrid();
+
+    // Set default language Thai
+    setLang('th');
+  </script>
+</body>
+</html>

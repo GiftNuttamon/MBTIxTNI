@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เลือกคณะให้ตรงใจ MBT(N)I x คณะที่ใช่</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 25%, #2d1b69 50%, #4a148c 75%, #6a1b9a 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating magical particles */
+        .magic-particle {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #fff 0%, #e1bee7 50%, transparent 100%);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        /* 3D Text Effect */
+        .text-3d {
+            text-shadow: 
+                0 1px 0 #c9c9c9,
+                0 2px 0 #b9b9b9,
+                0 3px 0 #a9a9a9,
+                0 4px 0 #999,
+                0 5px 10px rgba(0,0,0,.6);
+            transform: perspective(500px) rotateX(15deg);
+        }
+
+        .candy-button {
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+            transform: perspective(500px) rotateX(10deg);
+            transition: all 0.3s ease;
+        }
+
+        .candy-button:hover {
+            transform: perspective(500px) rotateX(10deg) translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.4);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .step {
+            display: none;
+            text-align: center;
+            color: white;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-group {
+            margin: 20px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #e1bee7;
+        }
+
+        .form-group input, .form-group select {
+            padding: 12px 20px;
+            border: 2px solid #9c27b0;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input::placeholder {
+            color: #e1bee7;
+        }
+
+        .question-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .answer-option {
+            display: block;
+            margin: 10px 0;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #e1bee7;
+        }
+
+        .answer-option:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #9c27b0;
+            transform: translateX(10px);
+        }
+
+        .answer-option.selected {
+            background: linear-gradient(45deg, #9c27b0, #e91e63);
+            border-color: #fff;
+            color: white;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .result-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 20px 0;
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .mbti-type {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .faculty-name {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #48dbfb;
+        }
+
+        .npc-animation {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            position: relative;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .npc-character {
+            font-size: 8rem;
+            animation: rotate 4s infinite linear;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .faculty-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faculty-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-color: #9c27b0;
+        }
+
+        .faculty-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .faculty-card:hover::before {
+            animation: shine 0.8s ease-in-out;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
+        }
+
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .language-selector select {
+            padding: 10px 15px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid #9c27b0;
+            backdrop-filter: blur(10px);
+        }
+
+        .floating-icons {
+            position: fixed;
+            font-size: 2rem;
+            animation: floatAround 8s infinite ease-in-out;
+            z-index: 5;
+        }
+
+        @keyframes floatAround {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, -30px) rotate(90deg); }
+            50% { transform: translate(-30px, -60px) rotate(180deg); }
+            75% { transform: translate(-60px, 30px) rotate(270deg); }
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2rem; }
+            .container { padding: 10px; }
+            .question-card { padding: 20px; }
+            .faculty-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating magical particles -->
+    <div class="magic-particle" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
+    <div class="magic-particle" style="top: 20%; left: 80%; animation-delay: 1s;"></div>
+    <div class="magic-particle" style="top: 60%; left: 20%; animation-delay: 2s;"></div>
+    <div class="magic-particle" style="top: 80%; left: 70%; animation-delay: 3s;"></div>
+    <div class="magic-particle" style="top: 40%; left: 90%; animation-delay: 4s;"></div>
+
+    <!-- Floating fantasy icons -->
+    <div class="floating-icons" style="top: 15%; left: 5%;">🌟</div>
+    <div class="floating-icons" style="top: 25%; left: 85%; animation-delay: 2s;">✨</div>
+    <div class="floating-icons" style="top: 65%; left: 10%; animation-delay: 4s;">🔮</div>
+    <div class="floating-icons" style="top: 75%; left: 80%; animation-delay: 6s;">🌙</div>
+
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <select id="languageSelect" onchange="changeLanguage()">
+            <option value="th">ไทย</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+        </select>
+    </div>
+
+    <div class="container">
+        <!-- Step 1: User Info -->
+        <div id="step1" class="step active">
+            <h1 class="title text-3d" data-th="เลือกคณะให้ตรงใจ" data-en="Find Your Perfect Faculty" data-ja="あなたにぴったりの学部を見つけよう">เลือกคณะให้ตรงใจ</h1>
+            <h2 class="text-3d" data-th="MBT(N)I x คณะที่ใช่" data-en="MBT(N)I x Perfect Faculty Match" data-ja="MBT(N)I x 完璧な学部マッチ">MBT(N)I x คณะที่ใช่</h2>
+            
+            <div class="question-card">
+                <div class="form-group">
+                    <label data-th="เพศ" data-en="Gender" data-ja="性別">เพศ</label>
+                    <select id="gender">
+                        <option value="male" data-th="ชาย" data-en="Male" data-ja="男性">ชาย</option>
+                        <option value="female" data-th="หญิง" data-en="Female" data-ja="女性">หญิง</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label data-th="อายุ" data-en="Age" data-ja="年齢">อายุ</label>
+                    <input type="number" id="age" min="15" max="30" placeholder="18" required>
+                </div>
+                
+                <div class="form-group">
+                    <label data-th="ชื่อเล่น" data-en="Nickname" data-ja="ニックネーム">ชื่อเล่น</label>
+                    <input type="text" id="nickname" placeholder="ใส่ชื่อเล่นของคุณ" required>
+                </div>
+                
+                <button class="candy-button" onclick="startTest()" data-th="เริ่มทดสอบ MBTI" data-en="Start MBTI Test" data-ja="MBTIテストを開始">เริ่มทดสอบ MBTI</button>
+            </div>
+        </div>
+
+        <!-- Step 2: MBTI Test -->
+        <div id="step2" class="step">
+            <h2 class="title text-3d" data-th="แบบทดสอบ MBTI" data-en="MBTI Personality Test" data-ja="MBTI性格診断テスト">แบบทดสอบ MBTI</h2>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            
+            <div id="questionContainer" class="question-card">
+                <!-- Questions will be loaded here -->
+            </div>
+            
+            <button class="candy-button" id="nextBtn" onclick="nextQuestion()" style="display: none;" data-th="คำถามถัดไป" data-en="Next Question" data-ja="次の質問">คำถามถัดไป</button>
+        </div>
+
+        <!-- Step 3: Result -->
+        <div id="step3" class="step">
+            <h2 class="title text-3d" data-th="ผลการทดสอบ" data-en="Your Result" data-ja="あなたの結果">ผลการทดสอบ</h2>
+            
+            <div class="result-card">
+                <div class="mbti-type" id="mbtiResult"></div>
+                <div class="faculty-name" id="facultyResult"></div>
+                <div class="npc-animation">
+                    <div class="npc-character" id="npcCharacter"></div>
+                </div>
+                <p id="reasonText" style="font-size: 1.2rem; color: #e1bee7; margin: 20px 0;"></p>
+                <p id="personalizedMessage" style="font-size: 1.1rem; color: #fff; margin: 20px 0;"></p>
+            </div>
+            
+            <button class="candy-button" onclick="showAllFaculties()" data-th="ดู MBTI ที่เหมาะกับคณะต่างๆ" data-en="View All Faculty Matches" data-ja="すべての学部マッチを見る">ดู MBTI ที่เหมาะกับคณะต่างๆ</button>
+        </div>
+
+        <!-- Step 4: All Faculties -->
+        <div id="step4" class="step">
+            <h2 class="title text-3d" data-th="MBTI ที่เหมาะกับคณะต่างๆ" data-en="MBTI Matches for All Faculties" data-ja="すべての学部のMBTIマッチ">MBTI ที่เหมาะกับคณะต่างๆ</h2>
+            
+            <div class="faculty-grid" id="facultyGrid">
+                <!-- Faculty cards will be loaded here -->
+            </div>
+            
+            <button class="candy-button" onclick="restartTest()" data-th="ทดสอบใหม่" data-en="Take Test Again" data-ja="再テストする">ทดสอบใหม่</button>
+        </div>
+    </div>
+
+    <script>
+        let currentLanguage = 'th';
+        let currentQuestion = 0;
+        let answers = [];
+        let userInfo = {};
+
+        const translations = {
+            th: {
+                placeholders: {
+                    nickname: "ใส่ชื่อเล่นของคุณ"
+                }
+            },
+            en: {
+                placeholders: {
+                    nickname: "Enter your nickname"
+                }
+            },
+            ja: {
+                placeholders: {
+                    nickname: "ニックネームを入力してください"
+                }
+            }
+        };
+
+        const questions = {
+            th: [
+                {
+                    text: "เมื่อคุณอยู่ในงานปาร์ตี้ คุณมักจะ...",
+                    answers: [
+                        { text: "เข้าหาคนใหม่และเริ่มบทสนทนา", type: "E" },
+                        { text: "รอให้คนอื่นมาคุยกับคุณก่อน", type: "I" },
+                        { text: "หาคนที่คุณรู้จักแล้วคุยด้วย", type: "I" },
+                        { text: "เป็นจุดศูนย์กลางของความสนุก", type: "E" }
+                    ]
+                },
+                {
+                    text: "เมื่อต้องตัดสินใจเรื่องสำคัญ คุณมักจะ...",
+                    answers: [
+                        { text: "วิเคราะห์ข้อมูลและหาเหตุผลเชิงตรรกะ", type: "T" },
+                        { text: "ฟังเสียงหัวใจและความรู้สึก", type: "F" },
+                        { text: "ปรึกษาคนใกล้ชิดเพื่อหาความเห็น", type: "F" },
+                        { text: "ใช้ข้อมูลและสถิติในการตัดสินใจ", type: "T" }
+                    ]
+                },
+                {
+                    text: "คุณชอบทำงานแบบไหนมากกว่า?",
+                    answers: [
+                        { text: "มีแผนงานที่ชัดเจนและกำหนดเวลา", type: "J" },
+                        { text: "ยืดหยุ่นและปรับเปลี่ยนได้ตามสถานการณ์", type: "P" },
+                        { text: "มีโครงสร้างและระบบระเบียบ", type: "J" },
+                        { text: "เปิดกว้างสำหรับความเป็นไปได้ใหม่ๆ", type: "P" }
+                    ]
+                },
+                {
+                    text: "เมื่อเรียนรู้สิ่งใหม่ คุณชอบ...",
+                    answers: [
+                        { text: "เรียนรู้จากทฤษฎีและแนวคิดใหญ่ๆ", type: "N" },
+                        { text: "เรียนรู้จากประสบการณ์จริงและตัวอย่างเฉพาะ", type: "S" },
+                        { text: "มองภาพรวมและความเป็นไปได้ในอนาคต", type: "N" },
+                        { text: "เน้นรายละเอียดและข้อเท็จจริง", type: "S" }
+                    ]
+                },
+                {
+                    text: "ในการทำงานกลุ่ม คุณมักจะ...",
+                    answers: [
+                        { text: "เป็นผู้นำและประสานงาน", type: "E" },
+                        { text: "ทำงานเบื้องหลังและสนับสนุน", type: "I" },
+                        { text: "นำเสนอไอเดียและกระตุ้นทีม", type: "E" },
+                        { text: "วิเคราะห์และให้คำแนะนำ", type: "I" }
+                    ]
+                },
+                {
+                    text: "เมื่อมีปัญหาเกิดขึ้น คุณจะ...",
+                    answers: [
+                        { text: "หาสาเหตุและแก้ไขอย่างเป็นระบบ", type: "T" },
+                        { text: "คิดถึงผลกระทบต่อคนอื่นก่อน", type: "F" },
+                        { text: "วิเคราะห์ข้อมูลเพื่อหาทางออก", type: "T" },
+                        { text: "ปรึกษาและหาทางออกร่วมกัน", type: "F" }
+                    ]
+                },
+                {
+                    text: "คุณชอบสภาพแวดล้อมการทำงานแบบไหน?",
+                    answers: [
+                        { text: "มีคนเยอะและมีปฏิสัมพันธ์", type: "E" },
+                        { text: "เงียบสงบและมีพื้นที่ส่วนตัว", type: "I" },
+                        { text: "มีพลังงานและความคึกคัก", type: "E" },
+                        { text: "สงบและมีสมาธิ", type: "I" }
+                    ]
+                },
+                {
+                    text: "เมื่อวางแผนการเดินทาง คุณจะ...",
+                    answers: [
+                        { text: "วางแผนทุกรายละเอียดล่วงหน้า", type: "J" },
+                        { text: "มีแผนคร่าวๆ แล้วปรับไปเรื่อยๆ", type: "P" },
+                        { text: "จองที่พักและตั๋วเครื่องบินก่อน", type: "J" },
+                        { text: "ไปตามสบายและดูสถานการณ์", type: "P" }
+                    ]
+                }
+            ],
+            en: [
+                {
+                    text: "At a party, you usually...",
+                    answers: [
+                        { text: "Approach new people and start conversations", type: "E" },
+                        { text: "Wait for others to approach you first", type: "I" },
+                        { text: "Talk with people you already know", type: "I" },
+                        { text: "Become the center of attention", type: "E" }
+                    ]
+                },
+                {
+                    text: "When making important decisions, you usually...",
+                    answers: [
+                        { text: "Analyze data and find logical reasons", type: "T" },
+                        { text: "Listen to your heart and feelings", type: "F" },
+                        { text: "Consult close people for opinions", type: "F" },
+                        { text: "Use data and statistics to decide", type: "T" }
+                    ]
+                },
+                {
+                    text: "You prefer to work in a way that is...",
+                    answers: [
+                        { text: "Has clear plans and deadlines", type: "J" },
+                        { text: "Flexible and adaptable to situations", type: "P" },
+                        { text: "Structured and organized", type: "J" },
+                        { text: "Open to new possibilities", type: "P" }
+                    ]
+                },
+                {
+                    text: "When learning something new, you like to...",
+                    answers: [
+                        { text: "Learn from theories and big concepts", type: "N" },
+                        { text: "Learn from real experience and specific examples", type: "S" },
+                        { text: "See the big picture and future possibilities", type: "N" },
+                        { text: "Focus on details and facts", type: "S" }
+                    ]
+                },
+                {
+                    text: "In group work, you usually...",
+                    answers: [
+                        { text: "Lead and coordinate", type: "E" },
+                        { text: "Work behind the scenes and support", type: "I" },
+                        { text: "Present ideas and motivate the team", type: "E" },
+                        { text: "Analyze and give advice", type: "I" }
+                    ]
+                },
+                {
+                    text: "When problems arise, you will...",
+                    answers: [
+                        { text: "Find causes and fix systematically", type: "T" },
+                        { text: "Think about impact on others first", type: "F" },
+                        { text: "Analyze data to find solutions", type: "T" },
+                        { text: "Consult and find solutions together", type: "F" }
+                    ]
+                },
+                {
+                    text: "You prefer a work environment that is...",
+                    answers: [
+                        { text: "Crowded with lots of interaction", type: "E" },
+                        { text: "Quiet with personal space", type: "I" },
+                        { text: "Energetic and lively", type: "E" },
+                        { text: "Calm and focused", type: "I" }
+                    ]
+                },
+                {
+                    text: "When planning a trip, you will...",
+                    answers: [
+                        { text: "Plan every detail in advance", type: "J" },
+                        { text: "Have rough plans and adjust as you go", type: "P" },
+                        { text: "Book accommodation and flights first", type: "J" },
+                        { text: "Go with the flow and see what happens", type: "P" }
+                    ]
+                }
+            ],
+            ja: [
+                {
+                    text: "パーティーでは、あなたは通常...",
+                    answers: [
+                        { text: "新しい人に近づいて会話を始める", type: "E" },
+                        { text: "他の人が先に話しかけてくるのを待つ", type: "I" },
+                        { text: "すでに知っている人と話す", type: "I" },
+                        { text: "注目の中心になる", type: "E" }
+                    ]
+                },
+                {
+                    text: "重要な決定をするとき、あなたは通常...",
+                    answers: [
+                        { text: "データを分析し、論理的な理由を見つける", type: "T" },
+                        { text: "心と感情の声を聞く", type: "F" },
+                        { text: "親しい人に意見を求める", type: "F" },
+                        { text: "データと統計を使って決める", type: "T" }
+                    ]
+                },
+                {
+                    text: "あなたは次のような働き方を好みます...",
+                    answers: [
+                        { text: "明確な計画と締切がある", type: "J" },
+                        { text: "柔軟で状況に適応できる", type: "P" },
+                        { text: "構造化され整理されている", type: "J" },
+                        { text: "新しい可能性に開かれている", type: "P" }
+                    ]
+                },
+                {
+                    text: "新しいことを学ぶとき、あなたは...",
+                    answers: [
+                        { text: "理論と大きな概念から学ぶ", type: "N" },
+                        { text: "実際の経験と具体例から学ぶ", type: "S" },
+                        { text: "全体像と将来の可能性を見る", type: "N" },
+                        { text: "詳細と事実に焦点を当てる", type: "S" }
+                    ]
+                },
+                {
+                    text: "グループワークでは、あなたは通常...",
+                    answers: [
+                        { text: "リードし、調整する", type: "E" },
+                        { text: "裏方で働き、サポートする", type: "I" },
+                        { text: "アイデアを提示し、チームを動機づける", type: "E" },
+                        { text: "分析し、アドバイスを与える", type: "I" }
+                    ]
+                },
+                {
+                    text: "問題が発生したとき、あなたは...",
+                    answers: [
+                        { text: "原因を見つけ、体系的に修正する", type: "T" },
+                        { text: "まず他の人への影響を考える", type: "F" },
+                        { text: "データを分析して解決策を見つける", type: "T" },
+                        { text: "相談し、一緒に解決策を見つける", type: "F" }
+                    ]
+                },
+                {
+                    text: "あなたは次のような職場環境を好みます...",
+                    answers: [
+                        { text: "人が多く、たくさんの交流がある", type: "E" },
+                        { text: "静かで個人的なスペースがある", type: "I" },
+                        { text: "エネルギッシュで活気がある", type: "E" },
+                        { text: "落ち着いて集中できる", type: "I" }
+                    ]
+                },
+                {
+                    text: "旅行を計画するとき、あなたは...",
+                    answers: [
+                        { text: "すべての詳細を事前に計画する", type: "J" },
+                        { text: "大まかな計画を立てて、進みながら調整する", type: "P" },
+                        { text: "宿泊施設と航空券を最初に予約する", type: "J" },
+                        { text: "流れに任せて、何が起こるか見る", type: "P" }
+                    ]
+                }
+            ]
+        };
+
+        const facultyData = {
+            th: {
+                "คณะวิศวกรรมศาสตร์": {
+                    description: "เหมาะกับคนที่ชอบคิดวิเคราะห์ แก้ปัญหา และสร้างนวัตกรรมใหม่ๆ",
+                    mbtiTypes: {
+                        "INTJ": "นักวางแผนกลยุทธ์และพัฒนาเทคโนโลยี",
+                        "ENTJ": "ผู้นำที่ต้องการควบคุมและบริหารระบบ",
+                        "INTP": "นักคิดนอกกรอบ ชอบทดลองและพัฒนา",
+                        "ISTP": "นักลงมือทำ ชอบประกอบและทดลองเครื่องจักร"
+                    }
+                },
+                "คณะเทคโนโลยีสารสนเทศ": {
+                    description: "เหมาะกับคนที่สนใจเทคโนโลยี นวัตกรรมดิจิทัล และการวิเคราะห์ข้อมูล",
+                    mbtiTypes: {
+                        "INTP": "นักคิดเชิงวิเคราะห์ ชอบออกแบบระบบ",
+                        "ENTP": "คนที่ชอบพัฒนาเทคโนโลยีใหม่ๆ",
+                        "INFJ": "คนที่อยากใช้เทคโนโลยีเพื่อช่วยเหลือสังคม",
+                        "ISFP": "คนที่มีความคิดสร้างสรรค์ด้านงานออกแบบดิจิทัล"
+                    }
+                },
+                "คณะบริหารธุรกิจ": {
+                    description: "เหมาะกับคนที่สนใจการนำเทคโนโลยีดิจิทัลมาใช้ในภาคธุรกิจ",
+                    mbtiTypes: {
+                        "ESTJ": "นักบริหารที่มีระบบระเบียบ",
+                        "ISTJ": "นักวางแผนและจัดการธุรกิจ",
+                        "ESFJ": "คนที่มีมนุษย์สัมพันธ์ดีรักงานบริการ",
+                        "ENFJ": "นักสร้างแรงบันดาลใจและผู้นำที่เข้าใจคน",
+                        "ENFP": "นักสร้างสรรค์ไอเดียใหม่ๆ ด้านธุรกิจ"
+                    }
+                },
+                "คณะสื่อสารสากล": {
+                    description: "เหมาะกับคนที่รักการสื่อสาร และสนใจเรื่องภาษาวัฒนธรรม",
+                    mbtiTypes: {
+                        "ENFP": "นักเล่าเรื่องสร้างแรงบันดาลใจ",
+                        "ENTP": "นักคิดนอกกรอบ เก่งด้านการเจรจาและนำเสนอ",
+                        "INFJ": "นักสื่อสารที่ต้องการเปลี่ยนแปลงสังคม",
+                        "ENFJ": "นักพูด นักสร้างอิทธิพล และคนที่มีเสน่ห์ในการสื่อสาร"
+                    }
+                },
+                "คณะเทคโนโลยีดิจิทัลเพื่อธุรกิจอุตสาหกรรม": {
+                    description: "เหมาะกับคนที่สนใจการนำเทคโนโลยีดิจิทัลมาใช้ในภาคอุตสาหกรรม",
+                    mbtiTypes: {
+                        "INTJ": "นักวางแผนกลยุทธ์และพัฒนาเทคโนโลยี",
+                        "ENTJ": "ผู้นำที่ชอบบริหารจัดการเทคโนโลยีระบบอุตสาหกรรม",
+                        "ISTJ": "นักวิเคราะห์ข้อมูลที่แม่นยำรอบคอบ",
+                        "INTP": "นักคิดเชิงวิเคราะห์ ชอบออกแบบและพัฒนาเทคโนโลยีใหม่ๆ"
+                    }
+                }
+            },
+            en: {
+                "Faculty of Engineering": {
+                    description: "Perfect for those who love analytical thinking, problem-solving, and creating new innovations",
+                    mbtiTypes: {
+                        "INTJ": "Strategic planner and technology developer",
+                        "ENTJ": "Leader who wants to control and manage systems",
+                        "INTP": "Out-of-the-box thinker who loves experimenting and developing",
+                        "ISTP": "Hands-on person who loves assembling and testing machinery"
+                    }
+                },
+                "Faculty of Information Technology": {
+                    description: "Perfect for those interested in technology, digital innovation, and data analysis",
+                    mbtiTypes: {
+                        "INTP": "Analytical thinker who loves system design",
+                        "ENTP": "Person who loves developing new technologies",
+                        "INFJ": "Person who wants to use technology to help society",
+                        "ISFP": "Creative person in digital design work"
+                    }
+                },
+                "Faculty of Business Administration": {
+                    description: "Perfect for those interested in applying digital technology in business",
+                    mbtiTypes: {
+                        "ESTJ": "Systematic business manager",
+                        "ISTJ": "Business planner and manager",
+                        "ESFJ": "Person with good interpersonal skills who loves service work",
+                        "ENFJ": "Inspirational creator and leader who understands people",
+                        "ENFP": "Creative person with new business ideas"
+                    }
+                },
+                "Faculty of International Communication": {
+                    description: "Perfect for those who love communication and are interested in language and culture",
+                    mbtiTypes: {
+                        "ENFP": "Inspirational storyteller",
+                        "ENTP": "Out-of-the-box thinker skilled in negotiation and presentation",
+                        "INFJ": "Communicator who wants to change society",
+                        "ENFJ": "Speaker, influencer, and charismatic communicator"
+                    }
+                },
+                "Faculty of Digital Technology for Business and Industry": {
+                    description: "Perfect for those interested in applying digital technology in industry",
+                    mbtiTypes: {
+                        "INTJ": "Strategic planner and technology developer",
+                        "ENTJ": "Leader who loves managing industrial technology systems",
+                        "ISTJ": "Accurate and thorough data analyst",
+                        "INTP": "Analytical thinker who loves designing and developing new technologies"
+                    }
+                }
+            },
+            ja: {
+                "工学部": {
+                    description: "分析的思考、問題解決、新しいイノベーションの創造を愛する人に最適",
+                    mbtiTypes: {
+                        "INTJ": "戦略的プランナーおよび技術開発者",
+                        "ENTJ": "システムを制御し管理したいリーダー",
+                        "INTP": "実験と開発を愛する型にはまらない思考者",
+                        "ISTP": "機械の組み立てとテストを愛する実践的な人"
+                    }
+                },
+                "情報技術学部": {
+                    description: "技術、デジタルイノベーション、データ分析に興味がある人に最適",
+                    mbtiTypes: {
+                        "INTP": "システム設計を愛する分析的思考者",
+                        "ENTP": "新しい技術の開発を愛する人",
+                        "INFJ": "社会を助けるために技術を使いたい人",
+                        "ISFP": "デジタルデザイン作業で創造的な人"
+                    }
+                },
+                "経営学部": {
+                    description: "ビジネスにデジタル技術を応用することに興味がある人に最適",
+                    mbtiTypes: {
+                        "ESTJ": "体系的なビジネスマネージャー",
+                        "ISTJ": "ビジネスプランナーおよびマネージャー",
+                        "ESFJ": "良好な対人スキルを持ち、サービス業を愛する人",
+                        "ENFJ": "人を理解するインスピレーション創造者およびリーダー",
+                        "ENFP": "新しいビジネスアイデアを持つ創造的な人"
+                    }
+                },
+                "国際コミュニケーション学部": {
+                    description: "コミュニケーションを愛し、言語と文化に興味がある人に最適",
+                    mbtiTypes: {
+                        "ENFP": "インスピレーションを与えるストーリーテラー",
+                        "ENTP": "交渉とプレゼンテーションに長けた型にはまらない思考者",
+                        "INFJ": "社会を変えたいコミュニケーター",
+                        "ENFJ": "スピーカー、インフルエンサー、カリスマ的コミュニケーター"
+                    }
+                },
+                "産業ビジネスデジタル技術学部": {
+                    description: "産業にデジタル技術を応用することに興味がある人に最適",
+                    mbtiTypes: {
+                        "INTJ": "戦略的プランナーおよび技術開発者",
+                        "ENTJ": "産業技術システムの管理を愛するリーダー",
+                        "ISTJ": "正確で徹底的なデータアナリスト",
+                        "INTP": "新しい技術の設計と開発を愛する分析的思考者"
+                    }
+                }
+            }
+        };
+
+        const npcAnimals = {
+            "INTJ": "🦉", "ENTJ": "🦅", "INTP": "🐱", "ENTP": "🐒",
+            "INFJ": "🦋", "ENFJ": "🐺", "INFP": "🦄", "ENFP": "🐬",
+            "ISTJ": "🐘", "ESTJ": "🦁", "ISFJ": "🐼", "ESFJ": "🐕",
+            "ISTP": "🐯", "ESTP": "🐆", "ISFP": "🦊", "ESFP": "🐨"
+        };
+
+        function changeLanguage() {
+            currentLanguage = document.getElementById('languageSelect').value;
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            const elements = document.querySelectorAll('[data-th]');
+            elements.forEach(element => {
+                const key = `data-${currentLanguage}`;
+                if (element.hasAttribute(key)) {
+                    element.textContent = element.getAttribute(key);
+                }
+            });
+
+            // Update placeholder
+            const nicknameInput = document.getElementById('nickname');
+            if (nicknameInput) {
+                nicknameInput.placeholder = translations[currentLanguage].placeholders.nickname;
+            }
+
+            // Update current question if in test
+            if (currentQuestion < questions[currentLanguage].length && document.getElementById('step2').classList.contains('active')) {
+                loadQuestion();
+            }
+        }
+
+        function startTest() {
+            const gender = document.getElementById('gender').value;
+            const age = document.getElementById('age').value;
+            const nickname = document.getElementById('nickname').value;
+
+            if (!age || !nickname) {
+                alert(currentLanguage === 'th' ? 'กรุณากรอกข้อมูลให้ครบถ้วน' : 
+                      currentLanguage === 'en' ? 'Please fill in all information' : 
+                      'すべての情報を入力してください');
+                return;
+            }
+
+            userInfo = { gender, age, nickname };
+            currentQuestion = 0;
+            answers = [];
+
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const questionData = questions[currentLanguage][currentQuestion];
+            const container = document.getElementById('questionContainer');
+            
+            container.innerHTML = `
+                <div class="question-text">${questionData.text}</div>
+                ${questionData.answers.map((answer, index) => `
+                    <div class="answer-option" onclick="selectAnswer(${index})" data-index="${index}">
+                        ${answer.text}
+                    </div>
+                `).join('')}
+            `;
+
+            updateProgress();
+            document.getElementById('nextBtn').style.display = 'none';
+        }
+
+        function selectAnswer(index) {
+            const options = document.querySelectorAll('.answer-option');
+            options.forEach(option => option.classList.remove('selected'));
+            options[index].classList.add('selected');
+
+            const questionData = questions[currentLanguage][currentQuestion];
+            answers[currentQuestion] = questionData.answers[index].type;
+
+            document.getElementById('nextBtn').style.display = 'block';
+        }
+
+        function nextQuestion() {
+            if (answers[currentQuestion] === undefined) return;
+
+            currentQuestion++;
+            
+            if (currentQuestion >= questions[currentLanguage].length) {
+                calculateResult();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions[currentLanguage].length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function calculateResult() {
+            const counts = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+            
+            answers.forEach(answer => {
+                counts[answer]++;
+            });
+
+            const mbti = 
+                (counts.E > counts.I ? 'E' : 'I') +
+                (counts.S > counts.N ? 'S' : 'N') +
+                (counts.T > counts.F ? 'T' : 'F') +
+                (counts.J > counts.P ? 'J' : 'P');
+
+            showResult(mbti);
+        }
+
+        function showResult(mbti) {
+            const facultyNames = Object.keys(facultyData[currentLanguage]);
+            let recommendedFaculty = null;
+
+            // Find faculty that matches the MBTI
+            for (const faculty of facultyNames) {
+                if (facultyData[currentLanguage][faculty].mbtiTypes[mbti]) {
+                    recommendedFaculty = faculty;
+                    break;
+                }
+            }
+
+            // If no exact match, recommend based on dominant traits
+            if (!recommendedFaculty) {
+                if (mbti.includes('T') && (mbti.includes('N') || mbti.includes('J'))) {
+                    recommendedFaculty = facultyNames[0]; // Engineering
+                } else if (mbti.includes('N') && mbti.includes('T')) {
+                    recommendedFaculty = facultyNames[1]; // IT
+                } else if (mbti.includes('E') && (mbti.includes('J') || mbti.includes('F'))) {
+                    recommendedFaculty = facultyNames[2]; // Business
+                } else if (mbti.includes('E') && mbti.includes('F')) {
+                    recommendedFaculty = facultyNames[3]; // Communication
+                } else {
+                    recommendedFaculty = facultyNames[4]; // Digital Tech
+                }
+            }
+
+            document.getElementById('mbtiResult').textContent = mbti;
+            document.getElementById('facultyResult').textContent = recommendedFaculty;
+            document.getElementById('npcCharacter').textContent = npcAnimals[mbti];
+
+            const reason = facultyData[currentLanguage][recommendedFaculty].mbtiTypes[mbti] || 
+                         facultyData[currentLanguage][recommendedFaculty].description;
+            document.getElementById('reasonText').textContent = reason;
+
+            const personalizedMsg = currentLanguage === 'th' ? 
+                `${userInfo.nickname} (อายุ ${userInfo.age} ปี) กำลังเดินเข้าสู่ ${recommendedFaculty} ด้วยรอยยิ้ม!` :
+                currentLanguage === 'en' ?
+                `${userInfo.nickname} (age ${userInfo.age}) is walking into ${recommendedFaculty} with a smile!` :
+                `${userInfo.nickname}（${userInfo.age}歳）が笑顔で${recommendedFaculty}に入っていきます！`;
+            
+            document.getElementById('personalizedMessage').textContent = personalizedMsg;
+
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+        }
+
+        function showAllFaculties() {
+            const grid = document.getElementById('facultyGrid');
+            const faculties = facultyData[currentLanguage];
+            
+            grid.innerHTML = Object.keys(faculties).map(facultyName => {
+                const faculty = faculties[facultyName];
+                const mbtiList = Object.keys(faculty.mbtiTypes).map(mbti => 
+                    `<div style="margin: 10px 0; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                        <strong>${mbti}</strong>: ${faculty.mbtiTypes[mbti]}
+                    </div>`
+                ).join('');
+
+                return `
+                    <div class="faculty-card">
+                        <h3 style="color: #48dbfb; margin-bottom: 15px; font-size: 1.5rem;">${facultyName}</h3>
+                        <p style="color: #e1bee7; margin-bottom: 20px;">${faculty.description}</p>
+                        <div style="color: white;">
+                            ${mbtiList}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step4').classList.add('active');
+        }
+
+        function restartTest() {
+            currentQuestion = 0;
+            answers = [];
+            userInfo = {};
+            
+            document.getElementById('step4').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+            
+            // Reset form
+            document.getElementById('gender').value = 'male';
+            document.getElementById('age').value = '';
+            document.getElementById('nickname').value = '';
+        }
+
+        // Initialize floating particles and icons
+        function createFloatingElements() {
+            const particles = document.querySelectorAll('.magic-particle');
+            particles.forEach((particle, index) => {
+                particle.style.animationDelay = (index * 1.2) + 's';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+            });
+
+            const icons = document.querySelectorAll('.floating-icons');
+            icons.forEach((icon, index) => {
+                icon.style.animationDelay = (index * 2) + 's';
+            });
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            createFloatingElements();
+            updateLanguage();
+        };
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9868c011119a130f',t:'MTc1OTEyMDI3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
