@@ -8,9 +8,11 @@
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
         /* กำหนดรูปแบบหลักของเว็บไซต์ */
         body {
@@ -107,29 +109,31 @@
             </div>
 
             <div id="step-3" class="step-screen hidden text-center">
-                <h2 class="text-3xl font-extrabold mb-4 glowing-text" data-lang-key="title-result">ยินดีด้วย! คุณคือ...</h2>
-                <p id="result-mbti" class="text-6xl font-black text-yellow-300 glowing-text mb-6"></p>
+    <h2 class="text-3xl font-extrabold mb-4 glowing-text" data-lang-key="title-result">ยินดีด้วย! คุณคือ...</h2>
+    <p id="result-mbti" class="text-6xl font-black text-yellow-300 glowing-text mb-6"></p>
 
-                <div id="recommendation-box" class="p-6 rounded-2xl bg-gray-800 border border-blue-500 text-left">
-                    <p class="text-xl font-semibold glowing-text mb-2" data-lang-key="label-major">คณะที่เหมาะสมสำหรับคุณ:</p>
-                    <p id="result-major" class="text-2xl font-bold text-teal-400 mb-4"></p>
-                    <p class="text-xl font-semibold glowing-text mb-2" data-lang-key="label-reason">เหตุผล:</p>
-                    <p id="result-reason" class="text-lg"></p>
-                </div>
+    <div id="recommendation-box" class="p-6 rounded-2xl bg-gray-800 border border-blue-500 text-left">
+        <p class="text-xl font-semibold glowing-text mb-2" data-lang-key="label-major">คณะที่เหมาะสมสำหรับคุณ:</p>
+        <p id="result-major" class="text-2xl font-bold text-teal-400 mb-4"></p>
+        <p class="text-xl font-semibold glowing-text mb-2" data-lang-key="label-reason">เหตุผล:</p>
+        <p id="result-reason" class="text-lg"></p>
+    </div>
 
-                <div id="animation-placeholder" class="mt-8">
-                    <p class="text-lg italic text-gray-400" data-lang-key="animation-hint">ตัวละครของคุณกำลังเดินทางเข้าสู่ประตูวิชาเอกแล้ว...</p>
-                    <div id="npc-door-animation" class="mt-4 flex flex-col items-center justify-center">
-                        <div id="npc-info" class="mb-2 p-2 bg-purple-900/50 rounded-xl text-sm glowing-text"></div>
-                        <div id="npc-icon" class="text-5xl mb-4 animate-bounce"></div>
-                        <div class="w-full max-w-xs h-10 bg-gradient-to-r from-teal-400/20 via-teal-400/80 to-teal-400/20 rounded-full shadow-lg shadow-teal-500/50 flex items-center justify-center">
-                             <span class="sm-font-bold text-gray-900" id="door-label"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <button onclick="showMajorDetails()" class="candy-button w-full mt-8 p-4 rounded-full text-xl font-bold hover:brightness-110" data-lang-key="button-details">ดูรายละเอียด MBTI ทั้งหมด</button>
+    <div id="animation-placeholder" class="mt-8">
+        <div id="npc-door-animation" class="mt-4 flex flex-col items-center justify-center">
+            <div id="npc-info" class="mb-2 p-2 bg-purple-900/50 rounded-xl text-sm glowing-text"></div>
+            <div id="npc-icon" class="text-5xl mb-4 animate-bounce"></div>
+            <div class="w-full max-w-xs h-10 bg-gradient-to-r from-teal-400/20 via-teal-400/80 to-teal-400/20 rounded-full shadow-lg shadow-teal-500/50 flex items-center justify-center">
+                <span class="sm-font-bold text-gray-900" id="door-label"></span>
             </div>
+        </div>
+    </div>
+    
+    <button onclick="showMajorDetails()" class="candy-button w-full mt-8 p-4 rounded-full text-xl font-bold hover:brightness-110" data-lang-key="button-details">ดูรายละเอียด MBTI ทั้งหมด</button>
+    
+    <button onclick="shareResult()" class="candy-button w-full mt-4 p-4 rounded-full text-xl font-bold bg-blue-600 hover:bg-blue-700">แชร์ผลลัพธ์</button>
+
+</div>
 
             <div id="step-4" class="step-screen hidden">
                 <h2 class="text-3xl font-extrabold mb-6 text-center glowing-text" data-lang-key="title-details">MBTI และคณะทั้งหมด: โลกแห่งความรู้</h2>
@@ -821,6 +825,62 @@
             // Start on Step 1
             updateStep(1);
         };
+
+        function shareResult() {
+    // 1. เลือกส่วนที่ต้องการจะจับภาพ
+    const elementToCapture = document.getElementById('recommendation-box'); 
+    
+    // 2. ใช้ html2canvas ในการแปลง HTML เป็น Canvas
+    html2canvas(elementToCapture, {
+        backgroundColor: null, // ทำให้พื้นหลังโปร่งใส ถ้าต้องการ
+        scale: 2 // เพิ่มคุณภาพของภาพให้คมชัดขึ้น
+    }).then(canvas => {
+        // 3. แปลง Canvas เป็น Data URL
+        const dataURL = canvas.toDataURL('image/png');
+
+        // 4. สร้างลิงก์สำหรับแชร์ไปยัง Facebook และ Instagram Stories
+        const shareText = `ยินดีด้วย! ฉันคือ ${document.getElementById('result-mbti').textContent} และนี่คือคณะที่เหมาะกับฉัน! #MBTIxMajor #คณะที่ใช่`;
+        
+        // สำหรับ Facebook
+        const facebookShareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(shareText)}`;
+        
+        // สำหรับ Instagram Stories (จำเป็นต้องใช้ App Schema)
+        // Note: การแชร์ไป Instagram Stories โดยตรงจากเว็บไซต์จะทำงานได้ดีที่สุดบนมือถือเท่านั้น และจำเป็นต้องมีแอป Instagram ติดตั้งอยู่
+        const instagramShareURL = `instagram-stories://share?source_application=${encodeURIComponent('MBTIxMajorApp')}&content_url=${encodeURIComponent(window.location.href)}`;
+        // อาจจะต้องใช้ Blob เพื่อแชร์รูปภาพโดยตรง แต่จะมีความซับซ้อนมากขึ้น
+        
+        // 5. แสดงตัวเลือกการแชร์ หรือเปิดลิงก์สำหรับแชร์
+        // ในที่นี้จะแสดงเป็น popup ง่ายๆ
+        // สามารถเพิ่มปุ่มแยกสำหรับ Facebook และ Instagram ได้ด้วย
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+            // บนมือถือ อาจจะเปิดแอปโดยตรง
+            const shareOptions = `
+                <div>
+                    <p class="text-lg mb-4">เลือกแพลตฟอร์มที่ต้องการแชร์:</p>
+                    <button onclick="window.open('${instagramShareURL}')" class="candy-button px-6 py-2 rounded-full font-bold mb-2 bg-pink-500 hover:bg-pink-600">
+                        <i class="fab fa-instagram mr-2"></i> Instagram Story
+                    </button>
+                    <button onclick="window.open('${facebookShareURL}', '_blank')" class="candy-button px-6 py-2 rounded-full font-bold mb-2 bg-blue-600 hover:bg-blue-700">
+                        <i class="fab fa-facebook mr-2"></i> Facebook
+                    </button>
+                </div>
+            `;
+            showMessage(shareOptions);
+
+        } else {
+            // บนเดสก์ท็อป ให้ผู้ใช้ดาวน์โหลดรูปภาพและแชร์เอง
+            const downloadLink = document.createElement('a');
+            downloadLink.href = dataURL;
+            downloadLink.download = `MBTIxMajor_Result_${document.getElementById('result-mbti').textContent}.png`;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            showMessage('ดาวน์โหลดรูปภาพสำเร็จแล้ว! คุณสามารถนำไปแชร์บนโซเชียลมีเดียได้เลย');
+        }
+    });
+}
     </script>
 </body>
 </html>
