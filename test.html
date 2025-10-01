@@ -854,30 +854,28 @@
         // สามารถเพิ่มปุ่มแยกสำหรับ Facebook และ Instagram ได้ด้วย
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         
-        if (isMobile) {
-            // บนมือถือ อาจจะเปิดแอปโดยตรง
-            const shareOptions = `
-                <div>
-                    <p class="text-lg mb-4">เลือกแพลตฟอร์มที่ต้องการแชร์:</p>
-                    <button onclick="window.open('${instagramShareURL}')" class="candy-button px-6 py-2 rounded-full font-bold mb-2 bg-pink-500 hover:bg-pink-600">
-                        <i class="fab fa-instagram mr-2"></i> Instagram Story
-                    </button>
-                    <button onclick="window.open('${facebookShareURL}', '_blank')" class="candy-button px-6 py-2 rounded-full font-bold mb-2 bg-blue-600 hover:bg-blue-700">
-                        <i class="fab fa-facebook mr-2"></i> Facebook
-                    </button>
-                </div>`;
-            showMessage(shareOptions);
+        // if (isMobile) {
+        //     const shareOptions = `
+        //         <div>
+        //             <p class="text-lg mb-4">เลือกแพลตฟอร์มที่ต้องการแชร์:</p>
+        //             <button onclick="window.open('${instagramShareURL}')" class="candy-button px-6 py-2 rounded-full font-bold mb-2 bg-pink-500 hover:bg-pink-600">
+        //                 <i class="fab fa-instagram mr-2"></i> Instagram Story
+        //             </button>
+        //             <button onclick="window.open('${facebookShareURL}', '_blank')" class="candy-button px-6 py-2 rounded-full font-bold mb-2 bg-blue-600 hover:bg-blue-700">
+        //                 <i class="fab fa-facebook mr-2"></i> Facebook
+        //             </button>
+        //         </div>`;
+        //     showMessage(shareOptions);
 
-        } else {
-            // บนเดสก์ท็อป ให้ผู้ใช้ดาวน์โหลดรูปภาพและแชร์เอง
-            const downloadLink = document.createElement('a');
-            downloadLink.href = dataURL;
-            downloadLink.download = `MBTIxMajor_Result_${document.getElementById('result-mbti').textContent}.png`;
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-            showMessage('ดาวน์โหลดรูปภาพสำเร็จแล้ว! คุณสามารถนำไปแชร์บนโซเชียลมีเดียได้เลย');
-        }
+        // } else {
+        //     const downloadLink = document.createElement('a');
+        //     downloadLink.href = dataURL;
+        //     downloadLink.download = `MBTIxMajor_Result_${document.getElementById('result-mbti').textContent}.png`;
+        //     document.body.appendChild(downloadLink);
+        //     downloadLink.click();
+        //     document.body.removeChild(downloadLink);
+        //     showMessage('ดาวน์โหลดรูปภาพสำเร็จแล้ว! คุณสามารถนำไปแชร์บนโซเชียลมีเดียได้เลย');
+        // }
     });
 }
     </script>
