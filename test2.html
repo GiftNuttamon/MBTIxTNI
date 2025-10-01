@@ -824,62 +824,108 @@
             // Start on Step 1
             updateStep(1);
         };
+    </script>
 
-        function shareResult() {
-    // 1. ส่วนที่ต้องการจะจับภาพ
-    // const elementToCapture = document.getElementById('recommendation-box'); 
-    // const elementToCapture = document.body;
-    const elementToCapture = document.getElementById('ui-container');
+    <script>
+function shareResult() {
+    const elementToCapture = document.getElementById('ui-container'); // จับทั้งหน้าหลัก
 
-    
-    // 2. ใช้ html2canvas ในการแปลง HTML เป็น Canvas
     html2canvas(elementToCapture, {
-        backgroundColor: null, // ทำให้พื้นหลังโปร่งใส ถ้าต้องการ
-        scale: 2 // เพิ่มคุณภาพของภาพให้คมชัดขึ้น
+        backgroundColor: null,
+        scale: 2,
+        scrollY: -window.scrollY,
+        useCORS: true
     }).then(canvas => {
-        // 3. แปลง Canvas เป็น Data URL
         const dataURL = canvas.toDataURL('image/png');
 
-        // 4. สร้างลิงก์สำหรับแชร์ไปยัง Facebook และ Instagram Stories
-        const shareText = `ยินดีด้วย! ฉันคือ ${document.getElementById('result-mbti').textContent} และนี่คือคณะที่เหมาะกับฉัน! #MBTIxMajor #คณะที่ใช่`;
-        
-        // สำหรับ Facebook
-        const facebookShareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(shareText)}`;
-        
-        // สำหรับ Instagram Stories (จำเป็นต้องใช้ App Schema)
-        // Note: การแชร์ไป Instagram Stories โดยตรงจากเว็บไซต์จะทำงานได้ดีที่สุดบนมือถือเท่านั้น และจำเป็นต้องมีแอป Instagram ติดตั้งอยู่
-        const instagramShareURL = `instagram-stories://share?source_application=${encodeURIComponent('MBTIxMajorApp')}&content_url=${encodeURIComponent(window.location.href)}`;
-        // อาจจะต้องใช้ Blob เพื่อแชร์รูปภาพโดยตรง แต่จะมีความซับซ้อนมากขึ้น
-        
-        // 5. แสดงตัวเลือกการแชร์ หรือเปิดลิงก์สำหรับแชร์
-        // ในที่นี้จะแสดงเป็น popup ง่ายๆ
-        // สามารถเพิ่มปุ่มแยกสำหรับ Facebook และ Instagram ได้ด้วย
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        
-        if (isMobile) {
-            const shareOptions = `
-                <div>
-                    <p class="text-lg mb-4">เลือกแพลตฟอร์มที่ต้องการแชร์:</p>
-                    <button onclick="window.open('${instagramShareURL}')" class="candy-button px-6 py-2 rounded-full font-bold mb-2 bg-pink-500 hover:bg-pink-600">
-                        <i class="fab fa-instagram mr-2"></i> Instagram Story
-                    </button>
-                    <button onclick="window.open('${facebookShareURL}', '_blank')" class="candy-button px-6 py-2 rounded-full font-bold mb-2 bg-blue-600 hover:bg-blue-700">
-                        <i class="fab fa-facebook mr-2"></i> Facebook
-                    </button>
-                </div>`;
-            showMessage(shareOptions);
+        // ลบ popup เก่าถ้ามี
+        const oldPopup = document.getElementById('screenshot-popup');
+        if (oldPopup) oldPopup.remove();
 
+        // สร้าง popup ใหม่
+        const popup = document.createElement('div');
+        popup.id = "screenshot-popup";
+        popup.style.position = "fixed";
+        popup.style.top = "0";
+        popup.style.left = "0";
+        popup.style.width = "100%";
+        popup.style.height = "100%";
+        popup.style.background = "rgba(0,0,0,0.85)";
+        popup.style.display = "flex";
+        popup.style.flexDirection = "column";
+        popup.style.alignItems = "center";
+        popup.style.justifyContent = "center";
+        popup.style.zIndex = "9999";
+
+        popup.innerHTML = `
+            <div style="background:#fff;padding:16px;border-radius:16px;max-width:90%;max-height:90%;overflow:auto;text-align:center">
+                <h2 style="margin-bottom:12px;">📸 ภาพที่แคปแล้ว</h2>
+                <img src="${dataURL}" style="max-width:100%;border-radius:12px;margin-bottom:12px"/>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                    <button onclick="shareToInstagram('${dataURL}')" style="padding:10px;background:#E1306C;color:white;border:none;border-radius:8px">📸 แชร์ Instagram Story</button>
+                    <button onclick="shareToFacebook('${dataURL}')" style="padding:10px;background:#1877F2;color:white;border:none;border-radius:8px">👍 แชร์ Facebook</button>
+                    <button onclick="shareToApp('${dataURL}')" style="padding:10px;background:#4CAF50;color:white;border:none;border-radius:8px">🌐 แชร์ไปยังแอพอื่นๆ</button>
+                    <button onclick="downloadImage('${dataURL}')" style="padding:10px;background:#2196F3;color:white;border:none;border-radius:8px">💾 ดาวน์โหลด</button>
+                    <button onclick="document.getElementById('screenshot-popup').remove()" style="padding:10px;background:#f44336;color:white;border:none;border-radius:8px">❌ ปิด</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(popup);
+    });
+}
+
+// ============ ฟังก์ชันแชร์ ============
+
+// Instagram Story (เฉพาะมือถือที่มีแอป IG)
+function shareToInstagram(dataURL) {
+    fetch(dataURL).then(res => res.blob()).then(blob => {
+        const file = new File([blob], "mbti_result.png", { type: "image/png" });
+
+        if (navigator.share) {
+            navigator.share({
+                files: [file],
+                title: "แชร์ไปยัง Instagram",
+                text: "MBTI x Major ✨ ผลลัพธ์ของฉัน!"
+            }).catch(err => console.log("Share failed:", err));
         } else {
-            const downloadLink = document.createElement('a');
-            downloadLink.href = dataURL;
-            downloadLink.download = `MBTIxMajor_Result_${document.getElementById('result-mbti').textContent}.png`;
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-            showMessage('ดาวน์โหลดรูปภาพสำเร็จแล้ว! คุณสามารถนำไปแชร์บนโซเชียลมีเดียได้เลย');
+            // fallback เปิด schema (ใช้ได้บนมือถือ)
+            window.location.href = "instagram://story-camera";
         }
     });
 }
-    </script>
+
+// Facebook Share
+function shareToFacebook(dataURL) {
+    const facebookShareURL = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+    window.open(facebookShareURL, "_blank");
+}
+
+// Web Share API (แอพอื่นๆ เช่น LINE, Messenger, Twitter, …)
+function shareToApp(dataURL) {
+    if (navigator.share) {
+        fetch(dataURL)
+            .then(res => res.blob())
+            .then(blob => {
+                const file = new File([blob], "MBTIxMajor.png", { type: blob.type });
+                navigator.share({
+                    title: "MBTI x Major",
+                    text: "นี่คือผลลัพธ์ MBTI ของฉัน ✨",
+                    files: [file]
+                }).catch(err => console.log("Share failed:", err));
+            });
+    } else {
+        alert("เบราว์เซอร์นี้ไม่รองรับการแชร์ไปยังแอพโดยตรง 😢");
+    }
+}
+
+// ดาวน์โหลด
+function downloadImage(dataURL) {
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = "MBTIxMajor_Result.png";
+    link.click();
+}
+</script>
+
 </body>
 </html>
