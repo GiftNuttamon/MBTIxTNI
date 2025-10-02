@@ -254,6 +254,60 @@
                 'major-bba': 'คณะบริหารธุรกิจ',
                 'major-comm': 'คณะสื่อสารสากล',
                 'major-indtech': 'คณะเทคโนโลยีดิจิทัลเพื่อธุรกิจอุตสาหกรรม',
+                // descriptions (for step 4 cards)
+                major_desc: {
+                    eng: 'เหมาะกับคนที่ชอบคิดวิเคราะห์ แก้ปัญหา และสร้างนวัตกรรมใหม่ๆ',
+                    it: 'เหมาะกับคนที่สนใจเทคโนโลยี นวัตกรรมดิจิทัล และการวิเคราะห์ข้อมูล',
+                    bba: 'เหมาะกับคนที่สนใจการนำเทคโนโลยีดิจิทัล มาใช้ในภาคธุรกิจ',
+                    comm: 'เหมาะกับคนที่รักการสื่อสาร และสนใจเรื่องภาษาวัฒนธรรม',
+                    indtech: 'เหมาะกับคนที่สนใจการนำเทคโนโลยีดิจิทัลมาใช้ในภาคอุตสาหกรรม'
+                },
+                reasoning: {
+                    eng: {
+                        INTJ: 'นักวางแผนกลยุทธ์และพัฒนาเทคโนโลยี ที่สามารถออกแบบโครงสร้างที่ซับซ้อนได้อย่างมีประสิทธิภาพ',
+                        ENTJ: 'ผู้นำที่ต้องการควบคุมและบริหารระบบ มีวิสัยทัศน์ในการนำโครงการวิศวกรรมขนาดใหญ่',
+                        INTP: 'นักคิดนอกกรอบ ชอบทดลองและพัฒนา มีความสนใจในการค้นคว้าหลักการทางฟิสิกส์และคณิตศาสตร์',
+                        ISTP: 'นักลงมือทำ ชอบประกอบและทดลองเครื่องจักร มีทักษะการแก้ปัญหาในทางปฏิบัติได้อย่างรวดเร็ว'
+                    },
+                    it: {
+                        INTP: 'นักคิดเชิงวิเคราะห์ ชอบออกแบบระบบ มีความเข้าใจในโครงสร้างข้อมูลและอัลกอริทึม',
+                        ENTP: 'คนที่ชอบพัฒนาเทคโนโลยีใหม่ๆ และสร้างสรรค์โซลูชันด้านดิจิทัลที่ไม่เหมือนใคร',
+                        INFJ: 'อยากใช้เทคโนโลยีเพื่อช่วยเหลือสังคม มีแรงขับเคลื่อนในการสร้างแอปที่มีความหมาย',
+                        ISFP: 'โดดเด่นด้านงานออกแบบดิจิทัล UI/UX และการสร้างประสบการณ์ผู้ใช้'
+                    },
+                    bba: {
+                        ESTJ: 'นักบริหารที่มีระบบระเบียบ วางแผนการตลาดและการดำเนินงานได้อย่างเป็นขั้นตอน',
+                        ISTJ: 'นักวางแผนและจัดการธุรกิจ ที่แม่นยำและรอบคอบในตัวเลขการเงิน',
+                        ESFJ: 'มนุษย์สัมพันธ์ดี รักงานบริการ และสร้างเครือข่ายลูกค้าได้',
+                        ENFJ: 'ผู้นำที่เข้าใจคน กระตุ้นทีมให้บรรลุเป้าหมายทางธุรกิจ',
+                        ENFP: 'นักสร้างสรรค์ไอเดียใหม่ๆ มีความคิดริเริ่ม ทำแคมเปญดึงดูด'
+                    },
+                    comm: {
+                        ENFP: 'นักเล่าเรื่องสร้างแรงบันดาลใจ ถ่ายทอดข้อความทรงพลังและน่าจดจำ',
+                        ENTP: 'นักคิดนอกกรอบ เก่งเจรจาและพรีเซนต์ โน้มน้าวใจผู้อื่น',
+                        INFJ: 'นักสื่อสารเพื่อการเปลี่ยนแปลงสังคม ใช้คำพูดสร้างความเข้าใจ',
+                        ENFJ: 'นักพูดมีเสน่ห์ สร้างอิทธิพล ดึงดูดผู้ฟัง'
+                    },
+                    indtech: {
+                        INTJ: 'นักวางแผนกลยุทธ์และพัฒนาเทคโนโลยี สร้างระบบอัตโนมัติในโรงงาน',
+                        ENTJ: 'ผู้นำที่บริหารเทคโนโลยีอุตสาหกรรม ควบคุมซัพพลายเชน',
+                        ISTJ: 'นักวิเคราะห์ข้อมูลที่แม่นยำ ใช้ข้อมูลเพิ่มประสิทธิภาพการผลิต',
+                        INTP: 'นักคิดเชิงวิเคราะห์ ชอบออกแบบ/พัฒนาเทคโนโลยีใหม่ เช่น IoT และ AI'
+                    }
+                },
+                reasoning_generic: {
+                    eng: 'บุคลิกของคุณเหมาะกับการคิดวิเคราะห์และแก้ปัญหาเชิงโครงสร้าง',
+                    it: 'บุคลิกของคุณเหมาะกับการสำรวจแนวคิดใหม่และการพัฒนาดิจิทัล',
+                    bba: 'บุคลิกของคุณเหมาะกับงานด้านธุรกิจและการประสานงาน',
+                    comm: 'บุคลิกของคุณเหมาะกับการสื่อสารและสร้างแรงบันดาลใจ',
+                    indtech: 'บุคลิกของคุณเหมาะกับการประยุกต์เทคโนโลยีในอุตสาหกรรม'
+                },
+                fallbacks: {
+                    TJ: 'บุคลิกของคุณเหมาะกับการวางแผนและแก้ปัญหาเชิงโครงสร้าง (Fallback)',
+                    NP: 'บุคลิกของคุณเหมาะกับการสำรวจแนวคิดใหม่ ๆ และการพัฒนาดิจิทัล (Fallback)',
+                    FE: 'บุคลิกของคุณเหมาะกับการสื่อสาร สร้างแรงบันดาลใจ และการสร้างความสัมพันธ์ (Fallback)',
+                    DEFAULT_BBA: 'บุคลิกของคุณมีความสามารถในการปรับตัวได้ดีกับสายงานธุรกิจ (Default Fallback)'
+                }
             },
             'en': {
                 'title-start': 'Find Your Path: MBT(N)I x Major',
@@ -292,39 +346,60 @@
                 'major-bba': 'Faculty of Business Administration',
                 'major-comm': 'Faculty of Global Communication',
                 'major-indtech': 'Faculty of Digital Technology for Industrial Business',
-                'reasoning' : {
-                    'eng': {
-                        INTJ: 'Strategic planners and technology developers who can design complex structures efficiently.',
-                        ENTJ: 'Leaders who want to control and manage systems, with a vision to lead large engineering projects.',
-                        INTP: 'Out-of-the-box thinkers who love experimenting and developing, with an interest in researching principles of physics and mathematics.',
-                        ISTP: 'Hands-on doers who enjoy assembling and experimenting with machinery, with quick problem-solving skills in practice.',
+                major_desc: {
+                    eng: 'Best for analytical problem-solvers who love building new innovations.',
+                    it: 'Great for tech-curious minds into digital innovation and data analysis.',
+                    bba: 'Ideal for those who want to apply digital tech in business.',
+                    comm: 'For communicators who are passionate about language and culture.',
+                    indtech: 'For those who want to apply digital tech in industrial settings.'
+                },
+                reasoning: {
+                    eng: {
+                        INTJ: 'A strategic planner who designs efficient, complex systems.',
+                        ENTJ: 'A visionary leader who can manage large-scale engineering projects.',
+                        INTP: 'An out-of-the-box thinker who loves research in physics and math.',
+                        ISTP: 'A hands-on builder who rapidly solves practical problems.'
                     },
-                    'it': {
-                        INTP: 'Analytical thinkers who love designing systems, with an understanding of data structures and algorithms.',
-                        ENTP: 'People who enjoy developing new technologies and creating unique digital solutions.',
-                        INFJ: 'Individuals who want to use technology to help society, driven to create meaningful applications.',
-                        ISFP: 'Creative minds in digital design, excelling in UI/UX and creating user experiences.',
+                    it: {
+                        INTP: 'An analytical thinker who enjoys system design and algorithms.',
+                        ENTP: 'An innovator who creates unique digital solutions.',
+                        INFJ: 'Driven to build meaningful apps that help society.',
+                        ISFP: 'Creative in digital design with strengths in UI/UX and user experience.'
                     },
-                    'bba': {
-                        ESTJ: 'Organized managers who can plan marketing and operations systematically.',
-                        ISTJ: 'Planners and business managers who are accurate and meticulous in financial analysis.',
-                        ESFJ: 'People with good interpersonal skills who love service work, skilled in building networks and good customer relationships.',
-                        ENFJ: 'Inspirational leaders who understand people, capable of motivating teams to achieve business goals.',
-                        ENFP: 'Creative business idea generators, with initiative and the ability to create attractive campaigns.',
+                    bba: {
+                        ESTJ: 'A structured manager who plans marketing and operations step by step.',
+                        ISTJ: 'A precise business planner with solid financial analysis.',
+                        ESFJ: 'Service-minded with strong relationships and customer networks.',
+                        ENFJ: 'An inspiring leader who motivates teams to hit business goals.',
+                        ENFP: 'A creative trendsetter who crafts engaging campaigns.'
                     },
-                    'comm': {
-                        ENFP: 'Energetic communicators who thrive on social interaction and networking, excelling in dynamic environments.',
-                        ESFP: 'Outgoing individuals who love engaging with others, skilled in public relations and event management.',
-                        ISFJ: 'Supportive communicators who value harmony, excelling in roles that require empathy and understanding.',
-                        INFP: 'Idealistic communicators driven by values, thriving in creative writing and media production roles.',
+                    comm: {
+                        ENFP: 'A storyteller who inspires with memorable, powerful messages.',
+                        ENTP: 'A persuasive negotiator and presenter who convinces others.',
+                        INFJ: 'A communicator who seeks social change and understanding.',
+                        ENFJ: 'A charismatic speaker who influences and captivates audiences.'
                     },
-                    'indtech': {
-                        ESTP: 'Action-oriented individuals who excel in fast-paced environments, skilled in problem-solving and adaptability.',
-                        ISTP: 'Practical thinkers who enjoy hands-on work, excelling in technical roles that require precision and skill.',
-                        ENTJ: 'Strategic leaders who thrive on challenges, capable of driving innovation in industrial technology applications.',
-                        INTJ: 'Visionary planners who excel in long-term strategy, skilled in optimizing industrial processes through technology.',
+                    indtech: {
+                        INTJ: 'A strategist who builds factory automation systems.',
+                        ENTJ: 'A leader managing industrial technology and supply chains.',
+                        ISTJ: 'A precise analyst who boosts production efficiency with data.',
+                        INTP: 'An analytical builder of new tech like IoT and AI for factories.'
                     }
-            },},
+                },
+                reasoning_generic: {
+                    eng: 'Your profile fits structured, analytical problem-solving.',
+                    it: 'Your profile fits exploring new ideas and digital development.',
+                    bba: 'Your profile fits business, coordination, and adaptability.',
+                    comm: 'Your profile fits communication and inspiring others.',
+                    indtech: 'Your profile fits applying technology to industry.'
+                },
+                fallbacks: {
+                    TJ: 'Your profile suits planning and solving structured problems (Fallback).',
+                    NP: 'Your profile suits exploring new ideas and digital development (Fallback).',
+                    FE: 'Your profile suits communication, inspiration, and relationships (Fallback).',
+                    DEFAULT_BBA: 'Your profile adapts well to business roles (Default Fallback).'
+                }
+            },
             'ja': {
                 'title-start': '夢の専攻を見つけよう: MBT(N)I x 専攻',
                 'label-name': 'ニックネーム (Nickname):',
@@ -362,26 +437,60 @@
                 'major-bba': '経営管理学部',
                 'major-comm': 'グローバルコミュニケーション学部',
                 'major-indtech': '産業ビジネス向けデジタル技術学部',
-                'reasoning' : {
-                    'eng': {
-                        INTJ: '効率的に複雑な構造を設計できる戦略的プランナー兼技術開発者。',
-                        ENTJ: 'システムを管理・運営したいリーダーで、大規模な工学プロジェクトを率いるビジョンを持つ。',
-                        INTP: '実験と開発が好きな型破りな思考者で、物理学と数学の原理の研究に興味を持つ。',
-                        ISTP: '機械の組み立てと実験が好きな実践的な人で、迅速な問題解決能力を持つ。',
+                major_desc: {
+                    eng: '分析と思考で問題解決し、革新的なものづくりが好きな人に最適。',
+                    it: 'デジタル革新とデータ分析に興味がある人に最適。',
+                    bba: 'デジタル技術をビジネスに応用したい人に最適。',
+                    comm: '言語や文化に情熱があるコミュニケーター向け。',
+                    indtech: 'デジタル技術を産業現場に応用したい人に最適。'
+                },
+                reasoning: {
+                    eng: {
+                        INTJ: '効率的で複雑なシステムを設計できる戦略的プランナー。',
+                        ENTJ: '大規模な工学プロジェクトを牽引できるビジョナリーなリーダー。',
+                        INTP: '物理や数学の探究を好む、独創的な研究志向の思考家。',
+                        ISTP: '実践的な課題を素早く解決する、手を動かす職人肌。'
                     },
-                    'it': {
-                        INTP: 'システム設計が好きな分析的思考者で、データ構造とアルゴリズムの理解を持つ。',
-                        ENTP: '新しい技術の開発とユニークなデジタルソリューションの創造が好きな人。',
-                        INFJ: '社会を助けるために技術を使いたい人で、有意義なアプリケーションを作成する動機を持つ。',
-                        ISFP: 'デジタルデザインにおける創造的な心で、UI/UXとユーザー体験の創造に優れる。',
+                    it: {
+                        INTP: 'システム設計やアルゴリズムを楽しむ分析的思考者。',
+                        ENTP: '独自のデジタル解決策を生み出すイノベーター。',
+                        INFJ: '社会に役立つ有意義なアプリを作りたいという動機が強い。',
+                        ISFP: 'UI/UXなどデジタルデザインに強みを持つクリエイティブ。'
                     },
-                    'bba': {
-                        ESTJ: '体系的にマーケティングと運営を計画できる組織的なマネージャー。',
-                        ISTJ: '財務分析において正確で細心の注意を払うビジネスプランナー兼マネージャー。',
-                        ESFJ: '良好な対人スキルを持ち、サービス業が好きで、ネットワークと良好な顧客関係の構築に優れる人。',
-                        ENFJ: '人々を理解し、ビジネス目標を達成するためにチームを動機付けることができるインスピレーショナルリーダー。',
-                        ENFP: '新しいビジネスアイデアの創造者で、魅力的なキャンペーンを作成するイ
-            }}}
+                    bba: {
+                        ESTJ: '段階的にマーケとオペレーションを計画できる規律あるマネージャー。',
+                        ISTJ: '正確な数値分析でビジネスを設計する堅実なプランナー。',
+                        ESFJ: '顧客関係とネットワーク構築に秀でたサービス志向。',
+                        ENFJ: 'チームを鼓舞し目標達成へ導くインスピレーショナルなリーダー。',
+                        ENFP: '魅力的なキャンペーンを生み出す発想力豊かなクリエイター。'
+                    },
+                    comm: {
+                        ENFP: '心に残るメッセージで人を動かすストーリーテラー。',
+                        ENTP: '交渉・プレゼンに長け、人の心を動かす説得力がある。',
+                        INFJ: '社会課題に向き合い理解を広げるコミュニケーター。',
+                        ENFJ: 'カリスマ性あるスピーカーで聴衆を魅了する。'
+                    },
+                    indtech: {
+                        INTJ: '工場自動化システムを設計する戦略家。',
+                        ENTJ: '産業テクノロジーとサプライチェーンを統率するリーダー。',
+                        ISTJ: 'データで生産効率を高める精緻なアナリスト。',
+                        INTP: 'IoTやAIなど新技術を工場へ応用する分析的開発者。'
+                    }
+                },
+                reasoning_generic: {
+                    eng: 'あなたの特性は構造的な課題解決に適しています。',
+                    it: 'あなたの特性は新しいアイデア探求とデジタル開発に適しています。',
+                    bba: 'あなたの特性はビジネスや調整業務に適しています。',
+                    comm: 'あなたの特性はコミュニケーションと人を鼓舞することに適しています。',
+                    indtech: 'あなたの特性は産業への技術応用に適しています。'
+                },
+                fallbacks: {
+                    TJ: 'あなたの特性は計画と構造的な問題解決に適しています（Fallback）。',
+                    NP: 'あなたの特性は新しいアイデア探求とデジタル開発に適しています（Fallback）。',
+                    FE: 'あなたの特性はコミュニケーションと人間関係構築に適しています（Fallback）。',
+                    DEFAULT_BBA: 'あなたの特性はビジネス分野に柔軟に適応できます（Default Fallback）。'
+                }
+            }
         };
 
         // --- QUIZ QUESTIONS ---
@@ -398,57 +507,57 @@
                 id: 'eng', lang_key: 'major-eng',
                 description: 'เหมาะกับคนที่ชอบคิดวิเคราะห์ แก้ปัญหา และสร้างนวัตกรรมใหม่ๆ',
                 mbti: ['INTJ', 'ENTJ', 'INTP', 'ISTP'],
-                // reasoning: {
-                //     INTJ: 'นักวางแผนกลยุทธ์และพัฒนาเทคโนโลยี ที่สามารถออกแบบโครงสร้างที่ซับซ้อนได้อย่างมีประสิทธิภาพ',
-                //     ENTJ: 'ผู้นำที่ต้องการควบคุมและบริหารระบบ มีวิสัยทัศน์ในการนำโครงการวิศวกรรมขนาดใหญ่',
-                //     INTP: 'นักคิดนอกกรอบ ชอบทดลองและพัฒนา มีความสนใจในการค้นคว้าหลักการทางฟิสิกส์และคณิตศาสตร์',
-                //     ISTP: 'นักลงมือทำ ชอบประกอบและทดลองเครื่องจักร มีทักษะการแก้ปัญหาในทางปฏิบัติได้อย่างรวดเร็ว',
-                // }
+                reasoning: {
+                    INTJ: 'นักวางแผนกลยุทธ์และพัฒนาเทคโนโลยี ที่สามารถออกแบบโครงสร้างที่ซับซ้อนได้อย่างมีประสิทธิภาพ',
+                    ENTJ: 'ผู้นำที่ต้องการควบคุมและบริหารระบบ มีวิสัยทัศน์ในการนำโครงการวิศวกรรมขนาดใหญ่',
+                    INTP: 'นักคิดนอกกรอบ ชอบทดลองและพัฒนา มีความสนใจในการค้นคว้าหลักการทางฟิสิกส์และคณิตศาสตร์',
+                    ISTP: 'นักลงมือทำ ชอบประกอบและทดลองเครื่องจักร มีทักษะการแก้ปัญหาในทางปฏิบัติได้อย่างรวดเร็ว',
+                }
             },
             {
                 id: 'it', lang_key: 'major-it',
                 description: 'เหมาะกับคนที่สนใจเทคโนโลยี นวัตกรรมดิจิทัล และการวิเคราะห์ข้อมูล',
                 mbti: ['INTP', 'ENTP', 'INFJ', 'ISFP'],
-                // reasoning: {
-                //     INTP: 'นักคิดเชิงวิเคราะห์ ชอบออกแบบระบบ มีความเข้าใจในโครงสร้างข้อมูลและอัลกอริทึม',
-                //     ENTP: 'คนที่ชอบพัฒนาเทคโนโลยีใหม่ๆ และสร้างสรรค์โซลูชันด้านดิจิทัลที่ไม่เหมือนใคร',
-                //     INFJ: 'คนที่อยากใช้เทคโนโลยีเพื่อช่วยเหลือสังคม มีแรงขับเคลื่อนในการสร้างแอปพลิเคชันที่มีความหมาย',
-                //     ISFP: 'คนที่มีความคิดสร้างสรรค์ด้านงานออกแบบดิจิทัล โดดเด่นด้าน UI/UX และการสร้างประสบการณ์ผู้ใช้',
-                // }
+                reasoning: {
+                    INTP: 'นักคิดเชิงวิเคราะห์ ชอบออกแบบระบบ มีความเข้าใจในโครงสร้างข้อมูลและอัลกอริทึม',
+                    ENTP: 'คนที่ชอบพัฒนาเทคโนโลยีใหม่ๆ และสร้างสรรค์โซลูชันด้านดิจิทัลที่ไม่เหมือนใคร',
+                    INFJ: 'คนที่อยากใช้เทคโนโลยีเพื่อช่วยเหลือสังคม มีแรงขับเคลื่อนในการสร้างแอปพลิเคชันที่มีความหมาย',
+                    ISFP: 'คนที่มีความคิดสร้างสรรค์ด้านงานออกแบบดิจิทัล โดดเด่นด้าน UI/UX และการสร้างประสบการณ์ผู้ใช้',
+                }
             },
             {
                 id: 'bba', lang_key: 'major-bba',
                 description: 'เหมาะกับคนที่สนใจการนำเทคโนโลยีดิจิทัล มาใช้ในภาคธุรกิจ',
                 mbti: ['ESTJ', 'ISTJ', 'ESFJ', 'ENFJ', 'ENFP'],
-                // reasoning: {
-                //     ESTJ: 'นักบริหารที่มีระบบระเบียบ สามารถวางแผนการตลาดและการดำเนินงานได้อย่างเป็นขั้นตอน',
-                //     ISTJ: 'นักวางแผนและจัดการธุรกิจ ที่มีความแม่นยำและรอบคอบในการวิเคราะห์ตัวเลขทางการเงิน',
-                //     ESFJ: 'คนที่มีมนุษย์สัมพันธ์ดีรักงานบริการ มีทักษะในการสร้างเครือข่ายและความสัมพันธ์ที่ดีกับลูกค้า',
-                //     ENFJ: 'นักสร้างแรงบันดาลใจและผู้นำที่เข้าใจคน สามารถกระตุ้นทีมงานให้บรรลุเป้าหมายทางธุรกิจ',
-                //     ENFP: 'นักสร้างสรรค์ไอเดียใหม่ๆ ด้านธุรกิจ มีความคิดริเริ่มและสามารถสร้างแคมเปญที่น่าดึงดูด',
-                // }
+                reasoning: {
+                    ESTJ: 'นักบริหารที่มีระบบระเบียบ สามารถวางแผนการตลาดและการดำเนินงานได้อย่างเป็นขั้นตอน',
+                    ISTJ: 'นักวางแผนและจัดการธุรกิจ ที่มีความแม่นยำและรอบคอบในการวิเคราะห์ตัวเลขทางการเงิน',
+                    ESFJ: 'คนที่มีมนุษย์สัมพันธ์ดีรักงานบริการ มีทักษะในการสร้างเครือข่ายและความสัมพันธ์ที่ดีกับลูกค้า',
+                    ENFJ: 'นักสร้างแรงบันดาลใจและผู้นำที่เข้าใจคน สามารถกระตุ้นทีมงานให้บรรลุเป้าหมายทางธุรกิจ',
+                    ENFP: 'นักสร้างสรรค์ไอเดียใหม่ๆ ด้านธุรกิจ มีความคิดริเริ่มและสามารถสร้างแคมเปญที่น่าดึงดูด',
+                }
             },
             {
                 id: 'comm', lang_key: 'major-comm',
                 description: 'เหมาะกับคนที่รักการสื่อสาร และสนใจเรื่องภาษาวัฒนธรรม',
                 mbti: ['ENFP', 'ENTP', 'INFJ', 'ENFJ'],
-                // reasoning: {
-                //     ENFP: 'นักเล่าเรื่องสร้างแรงบันดาลใจ สามารถถ่ายทอดข้อความที่ทรงพลังและน่าจดจำ',
-                //     ENTP: 'นักคิดนอกกรอบ เก่งด้านการเจรจาและนำเสนอ มีความสามารถในการโน้มน้าวใจผู้อื่น',
-                //     INFJ: 'นักสื่อสารที่ต้องการเปลี่ยนแปลงสังคม ใช้คำพูดเพื่อสร้างความเข้าใจในประเด็นสำคัญ',
-                //     ENFJ: 'นักพูด นักสร้างอิทธิพล และคนที่มีเสน่ห์ในการสื่อสาร มีความสามารถในการดึงดูดผู้ฟัง',
-                // }
+                reasoning: {
+                    ENFP: 'นักเล่าเรื่องสร้างแรงบันดาลใจ สามารถถ่ายทอดข้อความที่ทรงพลังและน่าจดจำ',
+                    ENTP: 'นักคิดนอกกรอบ เก่งด้านการเจรจาและนำเสนอ มีความสามารถในการโน้มน้าวใจผู้อื่น',
+                    INFJ: 'นักสื่อสารที่ต้องการเปลี่ยนแปลงสังคม ใช้คำพูดเพื่อสร้างความเข้าใจในประเด็นสำคัญ',
+                    ENFJ: 'นักพูด นักสร้างอิทธิพล และคนที่มีเสน่ห์ในการสื่อสาร มีความสามารถในการดึงดูดผู้ฟัง',
+                }
             },
             {
                 id: 'indtech', lang_key: 'major-indtech',
                 description: 'เหมาะกับคนที่สนใจการนำเทคโนโลยีดิจิทัลมาใช้ในภาคอุตสาหกรรม',
                 mbti: ['INTJ', 'ENTJ', 'ISTJ', 'INTP'],
-                // reasoning: {
-                //     INTJ: 'นักวางแผนกลยุทธ์และพัฒนาเทคโนโลยี สามารถสร้างระบบอัตโนมัติในโรงงานอุตสาหกรรม',
-                //     ENTJ: 'ผู้นำที่ชอบบริหารจัดการเทคโนโลยีระบบอุตสาหกรรม มีความสามารถในการควบคุมห่วงโซ่อุปทาน',
-                //     ISTJ: 'นักวิเคราะห์ข้อมูลที่แม่นยำรอบคอบ ใช้ข้อมูลเพื่อเพิ่มประสิทธิภาพกระบวนการผลิต',
-                //     INTP: 'นักคิดเชิงวิเคราะห์ ชอบออกแบบและพัฒนาเทคโนโลยีใหม่ๆ เช่น IoT และ AI ในโรงงาน',
-                // }
+                reasoning: {
+                    INTJ: 'นักวางแผนกลยุทธ์และพัฒนาเทคโนโลยี สามารถสร้างระบบอัตโนมัติในโรงงานอุตสาหกรรม',
+                    ENTJ: 'ผู้นำที่ชอบบริหารจัดการเทคโนโลยีระบบอุตสาหกรรม มีความสามารถในการควบคุมห่วงโซ่อุปทาน',
+                    ISTJ: 'นักวิเคราะห์ข้อมูลที่แม่นยำรอบคอบ ใช้ข้อมูลเพื่อเพิ่มประสิทธิภาพกระบวนการผลิต',
+                    INTP: 'นักคิดเชิงวิเคราะห์ ชอบออกแบบและพัฒนาเทคโนโลยีใหม่ๆ เช่น IoT และ AI ในโรงงาน',
+                }
             }
         ];
 
@@ -470,27 +579,19 @@
                 const text = translations[lang][key];
                 if (text) {
                     if (element.hasAttribute('data-gender')) {
-                        // For gender buttons, need to check if text is a simple string
                         element.textContent = text;
-                    } else if (key === 'progress-text') { // <-- FIXED: Check key instead of non-existent ID
-                        // This element contains HTML (<span> for current question number) so we must use innerHTML.
+                    } else if (key === 'progress-text') {
                         element.innerHTML = text;
-                        // Since the HTML is now rendered, update the number inside the span to reflect the current question index.
-                        // We use the full HTML string from translations to ensure the correct language is set, then update the number.
                         document.getElementById('current-q').textContent = currentQuestionIndex + 1;
                     } else {
                         element.textContent = text;
                     }
                 }
             });
-            // Update quiz if active
             if (currentStep === 2) renderQuestion(currentQuestionIndex);
-            // Update result if active
             if (currentStep === 3) displayResult();
-            // Update major details if active
             if (currentStep === 4) renderMajorDetails();
 
-            // Special update for Step 1 buttons
             document.querySelectorAll('.gender-button').forEach(button => {
                 const genderKey = button.getAttribute('data-gender') === 'Male' ? 'gender-male' : 'gender-female';
                 button.textContent = translations[lang][genderKey];
@@ -539,7 +640,6 @@
                 return;
             }
 
-            // Reset score and start question 0
             score = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
             currentQuestionIndex = 0;
             updateStep(2);
@@ -553,7 +653,6 @@
             const qData = quizQuestions[index];
             const qLang = translations[currentLanguage][qData.key];
 
-            // Check if language data is available
             if (!qLang || !qLang.text || !qLang.a || !qLang.b) {
                 console.error(`Missing translation data for question key: ${qData.key}`);
                 return;
@@ -580,17 +679,13 @@
 
         function selectAnswer(scoreKey) {
             const qData = quizQuestions[currentQuestionIndex];
-            // Clear previous selection visually and update score
             document.querySelectorAll('.question-option').forEach(btn => {
                 btn.classList.remove('bg-purple-700', 'ring-4', 'ring-purple-400');
             });
 
-            // Apply visual selection
             const selectedButton = event.target.closest('.question-option');
             selectedButton.classList.add('bg-purple-700', 'ring-4', 'ring-purple-400');
 
-            // Store the score (1 point for the selected trait)
-            // We use 0.5 to balance the four questions per pair
             qData.selectedScore = scoreKey;
 
             document.getElementById('next-q-button').disabled = false;
@@ -604,7 +699,6 @@
                 return;
             }
 
-            // Apply the score (each question gives 1 point to one side)
             score[selectedScoreKey] += 1;
 
             currentQuestionIndex++;
@@ -638,47 +732,78 @@
             updateStep(3);
         }
 
+        function getReasonText(lang, majorId, mbti, fallbackMajorIdIfAny=null) {
+            // Try specific reason for MBTI within the major
+            const byMajor = translations[lang].reasoning?.[majorId];
+            if (byMajor && byMajor[mbti]) return byMajor[mbti];
+
+            // Try generic reason for the major
+            const genericByMajor = translations[lang].reasoning_generic?.[majorId];
+            if (genericByMajor) return genericByMajor;
+
+            // As a last resort, use the Thai text embedded in majorData (if present)
+            const major = majorData.find(m => m.id === majorId);
+            if (major && major.reasoning && major.reasoning[mbti]) return major.reasoning[mbti];
+
+            // Or fall back to description
+            if (major && major.description) return major.description;
+
+            // Or generic text from fallbackMajorIdIfAny
+            if (fallbackMajorIdIfAny && translations[lang].reasoning_generic?.[fallbackMajorIdIfAny]) {
+                return translations[lang].reasoning_generic[fallbackMajorIdIfAny];
+            }
+
+            return '';
+        }
+
         function getRecommendation(mbti) {
-            // Find the best fit Major based on the provided list
             for (const major of majorData) {
                 if (major.mbti.includes(mbti)) {
-                    // Found a match
                     return {
                         majorKey: major.lang_key,
-                        majorName: translations[currentLanguage][major.lang_key] || major.lang_key, // Translated name
-                        // reason: major.reasoning[mbti] || major.description
-                        reason: major.reasoning && major.reasoning[mbti] ? major.reasoning[mbti] : major.description
+                        majorName: translations[currentLanguage][major.lang_key] || major.lang_key,
+                        reason: getReasonText(currentLanguage, major.id, mbti) 
                     };
                 }
             }
 
-            // Fallback for types not explicitly listed (e.g., ESTP, ENFJ is listed, but ISFJ, etc.)
-            // We need a robust fallback based on I/E and T/F
-            if (mbti.includes('T') && mbti.includes('J')) return { majorKey: 'major-eng', majorName: translations[currentLanguage]['major-eng'], reason: 'บุคลิกของคุณเหมาะกับการวางแผนและแก้ปัญหาเชิงโครงสร้าง (Fallback)' };
-            if (mbti.includes('N') && mbti.includes('P')) return { majorKey: 'major-it', majorName: translations[currentLanguage]['major-it'], reason: 'บุคลิกของคุณเหมาะกับการสำรวจแนวคิดใหม่ ๆ และการพัฒนาทางดิจิทัล (Fallback)' };
-            if (mbti.includes('F') && mbti.includes('E')) return { majorKey: 'major-comm', majorName: translations[currentLanguage]['major-comm'], reason: 'บุคลิกของคุณเหมาะกับการสื่อสาร สร้างแรงบันดาลใจ และการสร้างความสัมพันธ์ (Fallback)' };
+            // Fallbacks by MBTI traits
+            if (mbti.includes('T') && mbti.includes('J')) {
+                return { majorKey: 'major-eng',
+                         majorName: translations[currentLanguage]['major-eng'],
+                         reason: translations[currentLanguage].fallbacks.TJ };
+            }
+            if (mbti.includes('N') && mbti.includes('P')) {
+                return { majorKey: 'major-it',
+                         majorName: translations[currentLanguage]['major-it'],
+                         reason: translations[currentLanguage].fallbacks.NP };
+            }
+            if (mbti.includes('F') && mbti.includes('E')) {
+                return { majorKey: 'major-comm',
+                         majorName: translations[currentLanguage]['major-comm'],
+                         reason: translations[currentLanguage].fallbacks.FE };
+            }
 
-            // Default
-            return { majorKey: 'major-bba', majorName: translations[currentLanguage]['major-bba'], reason: 'บุคลิกของคุณมีความสามารถในการปรับตัวได้ดีกับสายงานธุรกิจ (Default Fallback)' };
+            return { majorKey: 'major-bba',
+                     majorName: translations[currentLanguage]['major-bba'],
+                     reason: translations[currentLanguage].fallbacks.DEFAULT_BBA };
         }
 
         function displayResult(mbti = document.getElementById('result-mbti').textContent) {
             const recommendation = getRecommendation(mbti);
 
             document.getElementById('result-major').textContent = recommendation.majorName;
-            document.getElementById('result-reason').textContent = recommendation.reason; // Reason is kept in Thai as per prompt (specific reasons are not translated)
+            document.getElementById('result-reason').textContent = recommendation.reason;
             document.getElementById('door-label').textContent = recommendation.majorName;
 
             const npc = NPC_MAPPING[mbti] || NPC_MAPPING.default;
             const npcIcon = document.getElementById('npc-icon');
             const npcInfo = document.getElementById('npc-info');
 
-            // Animation setup (using basic HTML animation since complex 3D NPC model is out of scope for single file)
             npcIcon.textContent = npc.icon;
             npcIcon.style.color = npc.color;
             npcInfo.textContent = `${userName} (${userAge}) - ${mbti}`;
 
-            // Simple "walking" animation
             npcIcon.classList.remove('animate-bounce');
             npcIcon.style.transform = 'translateX(-100%)';
             setTimeout(() => {
@@ -689,7 +814,6 @@
                 npcIcon.style.transition = 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out';
                 npcIcon.style.transform = 'scale(0) translateY(-50px)';
                 npcIcon.style.opacity = '0';
-                // Reset for next run
                 setTimeout(() => {
                     npcIcon.style.transition = 'none';
                     npcIcon.style.transform = 'scale(1) translateY(0) translateX(-100%)';
@@ -709,11 +833,12 @@
                 const emojis = ['🌟', '✨', '💡', '🧠', '⚙️', '📈', '💬', '💻'];
                 const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 
-                // Get translated description if available, otherwise use Thai
-                const description = major.description;
+                const description = (translations[currentLanguage].major_desc && translations[currentLanguage].major_desc[major.id]) 
+                                    ? translations[currentLanguage].major_desc[major.id]
+                                    : major.description;
 
                 let mbtiListHtml = major.mbti.map(mbti => {
-                    const reason = major.reasoning[mbti] || '';
+                    const reason = getReasonText(currentLanguage, major.id, mbti) || '';
                     return `
                         <div class="p-3 rounded-lg bg-gray-900 border border-indigo-600 mb-2">
                             <span class="font-bold text-lg text-yellow-300">${mbti}</span>: <span class="text-gray-300">${reason}</span>
@@ -748,12 +873,10 @@
             });
             document.getElementById(`step-${step}`).classList.remove('hidden');
 
-            // Reset scroll position on step change
             document.getElementById('main-card').scrollTop = 0;
         }
 
         function resetApp() {
-            // Reset all state
             currentStep = 1;
             userName = '';
             userAge = 0;
@@ -762,7 +885,6 @@
             score = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
             quizQuestions.forEach(q => q.selectedScore = undefined);
 
-            // Reset UI
             document.getElementById('user-name').value = '';
             document.getElementById('user-age').value = '';
             document.querySelectorAll('.gender-button').forEach(btn => {
@@ -788,21 +910,17 @@
 
             camera.position.z = 5;
 
-            // Ambient Light (Soft glow)
             scene.add(new THREE.AmbientLight(0x404040, 5));
 
-            // Point Light (Magical glow)
             const pointLight = new THREE.PointLight(0x93c5fd, 10, 500);
             pointLight.position.set(10, 10, 10);
             scene.add(pointLight);
 
-            // Star/Particle Field (Magic Dust)
             const particleGeometry = new THREE.BufferGeometry();
             const particleCount = 2000;
             const posArray = new Float32Array(particleCount * 3);
 
             for (let i = 0; i < particleCount * 3; i++) {
-                // Spread particles in a large cube
                 posArray[i] = (Math.random() - 0.5) * 100;
             }
 
@@ -818,12 +936,11 @@
             const particles = new THREE.Points(particleGeometry, particleMaterial);
             scene.add(particles);
 
-            // Floating Candy/Magic Orb Geometries
             const numObjects = 15;
-            const geometry = new THREE.IcosahedronGeometry(0.5, 0); // Rounded, abstract shape
+            const geometry = new THREE.IcosahedronGeometry(0.5, 0);
             const material = new THREE.MeshStandardMaterial({
-                color: 0x8a2be2, // Blue Violet
-                emissive: 0x93c5fd, // Light blue glow
+                color: 0x8a2be2,
+                emissive: 0x93c5fd,
                 emissiveIntensity: 0.5,
                 metalness: 0.5,
                 roughness: 0.1,
@@ -850,38 +967,28 @@
                 magicObjects.push(candy);
             }
 
-            // Animation Loop
             const animate = () => {
                 requestAnimationFrame(animate);
 
                 const time = Date.now() * 0.00005;
-                // Move camera slightly for dynamic effect
                 camera.position.x += (0 - camera.position.x) * 0.0005;
                 camera.position.y += (0 - camera.position.y) * 0.0005;
 
-                // Animate floating objects
                 magicObjects.forEach(obj => {
                     obj.rotation.x += obj.userData.speedX;
                     obj.rotation.y += obj.userData.speedY;
-
-                    // Simple floating motion
                     obj.position.y += Math.sin(time * 5 + obj.id) * 0.001;
-
-                    // Loop objects back if they float too far
                     if (obj.position.z > 10) obj.position.z = -10;
                     if (obj.position.z < -10) obj.position.z = 10;
                 });
 
-                // Animate particles
                 particles.rotation.y += 0.0005;
-
 
                 renderer.render(scene, camera);
             };
 
             animate();
 
-            // Handle Resize
             window.addEventListener('resize', () => {
                 const newWidth = window.innerWidth;
                 const newHeight = window.innerHeight;
@@ -894,17 +1001,13 @@
         // --- EVENT LISTENERS & INITIALIZATION ---
 
         window.onload = function () {
-            // Initialize 3D scene
             initThreeJS();
 
-            // Set initial language
             setLanguage('th');
 
-            // Add input listeners for Step 1 validation
             document.getElementById('user-name').addEventListener('input', updateStep1Button);
             document.getElementById('user-age').addEventListener('input', updateStep1Button);
 
-            // Start on Step 1
             updateStep(1);
         };
 
@@ -917,7 +1020,6 @@ function showSharePopup(dataURL) {
 
     previewImg.src = dataURL;
 
-    // ตั้งค่า Instagram Share (ใช้ Web Share API ถ้ามี)
     igButton.onclick = async (e) => {
         e.preventDefault();
         const response = await fetch(dataURL);
@@ -930,11 +1032,10 @@ function showSharePopup(dataURL) {
                 text: "นี่คือผลลัพธ์ MBTI ของฉัน!"
             });
         } else {
-            alert("เบราว์เซอร์/แอปนี้ยังไม่รองรับการแชร์รูปไป Instagram โดยตรง\nกรุณาบันทึกรูปแล้วอัปโหลดเองครับ");
+            alert("เบราว์เซอร์/แอปนี้ยังไม่รองรับการแชร์รูปไป Instagram โดยตรง\\nกรุณาบันทึกรูปแล้วอัปโหลดเองครับ");
         }
     };
 
-    // Facebook: ให้ผู้ใช้ดาวน์โหลดภาพแทน (เพราะแชร์ไฟล์ตรงไม่ได้)
     fbButton.onclick = (e) => {
         e.preventDefault();
         const downloadLink = document.createElement('a');
@@ -943,13 +1044,10 @@ function showSharePopup(dataURL) {
         downloadLink.click();
     };
 
-    // Show the popup
     sharePopup.classList.remove('hidden');
 
-    // Special handling for mobile vs desktop
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (!isMobile) {
-        // On desktop, add a download link as direct app sharing isn't reliable
         const downloadLink = document.createElement('a');
         downloadLink.href = dataURL;
         downloadLink.download = `MBTIxMajor_Result_${document.getElementById('result-mbti').textContent}.png`;
@@ -963,7 +1061,6 @@ function showSharePopup(dataURL) {
 function hideSharePopup() {
     const sharePopup = document.getElementById('share-popup');
     sharePopup.classList.add('hidden');
-    // Remove the download link if it was added for desktop
     const downloadLink = document.querySelector('#screenshot-preview-container a');
     if (downloadLink) {
         downloadLink.remove();
@@ -971,26 +1068,19 @@ function hideSharePopup() {
 }
         
 function shareResult() {
-    // เลือก element ที่จะซ่อนก่อนแคป
     const elementsToHide = document.querySelectorAll('video, #detailbt, #sharebt');
-
-    // ซ่อนทุกตัว
     elementsToHide.forEach(el => el.style.display = 'none');
 
-    // เลือก element ที่ต้องการ capture
     const elementToCapture = document.getElementById('main-card'); 
 
     html2canvas(elementToCapture, {
         backgroundColor: null,
         scale: 2
     }).then(canvas => {
-        // แสดง element กลับคืน
         elementsToHide.forEach(el => el.style.display = '');
 
-        // แปลงเป็น Data URL
         const dataURL = canvas.toDataURL('image/png');
 
-        // แสดง popup พร้อมปุ่มแชร์
         showSharePopup(dataURL);
     });
 }
