@@ -760,37 +760,39 @@
         }
 
         function getRecommendation(mbti) {
-            for (const major of majorData) {
-                if (major.mbti.includes(mbti)) {
-                    return {
-                        majorKey: major.lang_key,
-                        majorName: translations[currentLanguage][major.lang_key] || major.lang_key,
-                        reason: getReasonText(currentLanguage, major.id, mbti) 
-                    };
-                }
-            }
+    let possibleMajors = [];
 
-            // Fallbacks by MBTI traits
-            if (mbti.includes('T') && mbti.includes('J')) {
-                return { majorKey: 'major-eng',
-                         majorName: translations[currentLanguage]['major-eng'],
-                         reason: translations[currentLanguage].fallbacks.TJ };
-            }
-            if (mbti.includes('N') && mbti.includes('P')) {
-                return { majorKey: 'major-it',
-                         majorName: translations[currentLanguage]['major-it'],
-                         reason: translations[currentLanguage].fallbacks.NP };
-            }
-            if (mbti.includes('F') && mbti.includes('E')) {
-                return { majorKey: 'major-comm',
-                         majorName: translations[currentLanguage]['major-comm'],
-                         reason: translations[currentLanguage].fallbacks.FE };
-            }
-
-            return { majorKey: 'major-bba',
-                     majorName: translations[currentLanguage]['major-bba'],
-                     reason: translations[currentLanguage].fallbacks.DEFAULT_BBA };
+    for (const major of majorData) {
+        if (major.mbti.includes(mbti)) {
+            possibleMajors.push(major.id);
         }
+    }
+
+    if (possibleMajors.length > 0) {
+        const chosen = possibleMajors[Math.floor(Math.random() * possibleMajors.length)];
+        return {
+            majorKey: translations[currentLanguage][`major-${chosen}`] ? `major-${chosen}` : chosen,
+            majorName: translations[currentLanguage][`major-${chosen}`] || chosen,
+            reason: getReasonText(currentLanguage, chosen, mbti)
+        };
+    }
+
+    // --- FallBacks ---
+    if (mbti.includes('T') && mbti.includes('J')) {
+        return { majorKey: 'major-eng', majorName: translations[currentLanguage]['major-eng'], reason: translations[currentLanguage].fallbacks.TJ };
+    }
+    if (mbti.includes('N') && mbti.includes('P')) {
+        return { majorKey: 'major-it', majorName: translations[currentLanguage]['major-it'], reason: translations[currentLanguage].fallbacks.NP };
+    }
+    if (mbti.includes('F') && mbti.includes('E')) {
+        return { majorKey: 'major-comm', majorName: translations[currentLanguage]['major-comm'], reason: translations[currentLanguage].fallbacks.FE };
+    }
+    if (mbti.includes('S') && mbti.includes('J')) {
+        return { majorKey: 'major-indtech', majorName: translations[currentLanguage]['major-indtech'], reason: translations[currentLanguage].reasoning_generic.indtech };
+    }
+
+    return { majorKey: 'major-bba', majorName: translations[currentLanguage]['major-bba'], reason: translations[currentLanguage].fallbacks.DEFAULT_BBA };
+}
 
         function displayResult(mbti = document.getElementById('result-mbti').textContent) {
             const recommendation = getRecommendation(mbti);
