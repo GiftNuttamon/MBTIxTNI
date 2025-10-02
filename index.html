@@ -638,7 +638,7 @@
             userName = document.getElementById('user-name').value.trim();
             userAge = parseInt(document.getElementById('user-age').value);
 
-            if (!userName || userAge < 10 || !userGender) {
+            if (!userName || userAge < 1 || !userGender) {
                 showMessage(translations[currentLanguage]['alert-fill-all']);
                 return;
             }
