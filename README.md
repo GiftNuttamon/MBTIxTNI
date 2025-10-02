@@ -4,6 +4,13 @@
 
 ---
 
+## 📊 ติดตามจำนวนผู้เล่น
+👉 [ดูสถิติบน Instagram Story](https://www.instagram.com/s/aGlnaGxpZ2h0OjE4Mjc3MDE0MzM3MjcxNDA0?story_media_id=3733692394731302909&igsh=ZGxpZjk5MDVzbjcw)
+
+<img src="./img/banner.png" alt="ผลลัพธ์" width="600">
+
+---
+
 ## 🌟 คุณสมบัติ (Features)
 - แบบทดสอบ MBTI ออนไลน์ (12 ข้อคำถาม)  
 - แนะนำคณะที่เหมาะสม 🎯  
