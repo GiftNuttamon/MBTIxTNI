@@ -30,14 +30,6 @@
 
 ---
 
-## ✨ Repository Info
-![GitHub stars](https://img.shields.io/github/stars/username/repo-name?style=flat-square)  
-![GitHub forks](https://img.shields.io/github/forks/username/repo-name?style=flat-square)  
-![GitHub issues](https://img.shields.io/github/issues/username/repo-name?style=flat-square)  
-![GitHub license](https://img.shields.io/github/license/username/repo-name?style=flat-square)  
-
----
-
 ## 📌 เกี่ยวกับโครงการ
 โครงการนี้เป็นส่วนหนึ่งของการเรียน **Computer Engineering – TNI**  
 เพื่อพัฒนาทักษะ **Web Development, UI/UX, และ Database Management**  
@@ -49,4 +41,4 @@
 - ที่ปรึกษา: Thai-Nichi Institute of Technology  
 
 ---
-⭐ อย่าลืมกด Star เพื่อเป็นกำลังใจนะครับ!
+⭐ อย่าลืมกด Star เพื่อเป็นกำลังใจนะคะ!
