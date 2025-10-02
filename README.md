@@ -3,12 +3,11 @@
 > 🎓 โครงการนี้พัฒนาโดย (กิ๊ฟ) นางสาวนัทธมน จันทร์สีดา CE15 2211310764 นักศึกษาวิศวกรรมคอมพิวเตอร์ TNI  
 
 <img src="./img/banner.png" alt="ผลลัพธ์" width="600">
----
 
 ## 📊 ติดตามจำนวนผู้เล่น
 👉 [ดูสถิติบน Instagram Story](https://www.instagram.com/s/aGlnaGxpZ2h0OjE4Mjc3MDE0MzM3MjcxNDA0?story_media_id=3733692394731302909&igsh=ZGxpZjk5MDVzbjcw)
 
-<img src="./img/Press Play.png" alt="HowTo" width="250">
+<img src="./img/Press Play.png" alt="HowTo" width="600">
 
 <p align="left">
   <img src="./img/Results1.png" alt="Result1" width="250">
